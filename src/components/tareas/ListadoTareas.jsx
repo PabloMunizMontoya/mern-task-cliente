@@ -23,7 +23,13 @@ const ListadoTareas = () => {
                         />
                     ))
                 }
+                <button
+                    type='button'
+                    className='btn btn-eliminar'
+                >Eliminar proyecto &times;</button>
             </ul>
+
+            
         </Fragment>
         
     );
