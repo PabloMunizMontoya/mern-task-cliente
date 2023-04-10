@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useReducer} from 'react'
 
 import proyectoContext from './proyectoContext'
 import proyectoReducer from './proyectoReducer'
@@ -14,13 +14,13 @@ const ProyectoState = props => {
     // Serie de funciones para el crud
     
     return(
-        <proyectoContext.provider
+        <proyectoContext.Provider
             value={{
                 formulario: state.formulario
             }}
         >
             {props.children}
-        </proyectoContext.provider>
+        </proyectoContext.Provider>
     )
 }
 
