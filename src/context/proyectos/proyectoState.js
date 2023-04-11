@@ -1,11 +1,16 @@
+//35. aca definiremos el State y también las diferentes funciones con dispatch hacia los types.
 import React, {useReducer} from 'react'
 
+//35.1 importamos el context que creamos 
 import proyectoContext from './proyectoContext'
+
+
 import proyectoReducer from './proyectoReducer'
+
 import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS} from '../../types'
 
 
-
+//36 este sera el state inicial de toda la admin del proyecto, como la eliminación o creación de un proyecto
 const ProyectoState = props => {
     
     const proyectos = [
@@ -14,7 +19,7 @@ const ProyectoState = props => {
         {id : 3, nombre: 'Diseño de sitio web'}
     ]
 
-
+    //36.1 este sera entonces el state inicial de los proyectos, formulario comienza en false y una vez que el usuario le de click al boton nuevo proyecto el valor formulario pasara a true y se mostrara en pantalla el formulario para poner la data.
     const initialState = {
         proyectos : [],
         formulario : false

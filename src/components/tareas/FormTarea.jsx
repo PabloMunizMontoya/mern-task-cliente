@@ -1,10 +1,11 @@
 import React from 'react'
 
+// 27. en este componente estará el formulario para agregar nuevas tareas al proyecto en especifico.
 const FormTarea = () => {
     return ( 
         <div className='formulario'>
             <form>
-                <div lassName='contenedor-input'>
+                <div className='contenedor-input'>
                     <input 
                         type='text'
                         className='input-text'
@@ -12,7 +13,7 @@ const FormTarea = () => {
                         name='nombre'
                     />
                 </div>
-                <div lassName='contenedor-input'>
+                <div className='contenedor-input'>
                     <input 
                         type="submit"
                         className='btn btn-primario btn-submit btn-block' 
