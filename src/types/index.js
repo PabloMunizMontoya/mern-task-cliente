@@ -1,1 +1,7 @@
-export const FORMULARIO_PROYECTO = 'PROYECTO_PROYECTO'
+//31.este archivo se llama index.js para poder importar sin especificar el nombre del archivo.
+
+//40. estos son los tipos de estados que se modificaran a traves del state
+export const FORMULARIO_PROYECTO = 'FORMULARIO_PROYECTO'
+
+//54.1 creamos el type para obtener proyectos
+export const OBTENER_PROYECTOS = 'OBTENER_PROYECTOS'

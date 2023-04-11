@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 
 const NuevaCuenta = () => {
 
+    //12 le damos al usuario los nuevos valores name del formulario usando un useState.
     const [usuario, guardarUsuario] = useState({
         email: '',
         password: '',
@@ -10,8 +11,10 @@ const NuevaCuenta = () => {
         confirmar: ''
     })
 
+    //13. sacamos las propiedades de usuario usando un destructuring
     const { email, password, nombre, confirmar } = usuario
 
+    
     const onChange = (e) => {
         guardarUsuario({
             ...usuario,
@@ -42,6 +45,7 @@ const NuevaCuenta = () => {
                             onChange={onChange}
                         />
                     </div>
+                    {/* 10 le agregamos al formulario la casilla para poner el nombre del usuario */}
                     <div className='campo-form'>
                         <label htmlFor="nombre">Nombre</label>
                         <input 
@@ -64,6 +68,7 @@ const NuevaCuenta = () => {
                             onChange={onChange}
                         />
                     </div>
+                    {/* 11 ponemos este campo para repetir el password y generar una confirmación */}
                     <div className='campo-form'>
                         <label htmlFor="confirmar">Confirmar Password</label>
                         <input 
