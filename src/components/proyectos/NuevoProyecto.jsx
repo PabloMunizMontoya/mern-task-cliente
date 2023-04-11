@@ -1,11 +1,16 @@
 import React, { Fragment, useState, useContext } from 'react';
+
+//39. importamos el context para poder trabajar con el 
 import proyectoContext from '../../context/proyectos/proyectoContext';
 
-// 14 este componente tiene el formulario para agregar los nuevos proyectos.
+// 14. este componente tiene el formulario para agregar los nuevos proyectos.
 const NuevoProyecto = () => {
 
-    //obtenemos el state del formulario
+    //39.1 obtenemos el state del formulario dado por context, el estado inicial es false. usamos useContext le decimos que context debemos utilizar(proyectoContext) y de esta forma todas las functions y los estados en proyectoContext van a estar en proyectosContext
     const proyectosContext = useContext(proyectoContext)
+
+    //39.2 extraemos los valores en proyectosContext dados por proyectoContext usando destructuring, en este caso usaremos el formulario y su estado actual.
+    //40.5 queremos usar entonces la function que se encarga de cambiar el estado del formulario, esta function llega desde el context, la usamos aplicando el destructuring.
     const { formulario, mostrarFormulario } = proyectosContext
 
     //18. creamos el useState para guardar los datos llenados en el formulario , este objeto vaa tener solo una característica, y podría ser su estado inicial un string vació, pero mas adelante queremos con una librería insertar un id para poder hacer el crud tomando el valor de ese id, por esta razón es un objeto y no un string vació su estado inicial.
@@ -37,9 +42,13 @@ const NuevoProyecto = () => {
             <button
                 type='button'
                 className='btn btn-block btn-primario'
+
+                //40.6 usamos la function mostrar formulario cada que el usuario le da click a este boton, cambiando asi el estado de formulario de false (inicial) a true.
                 onClick= {() => mostrarFormulario()}
+                
             >Nuevo Proyecto</button>
 
+            {/* 39.3 si formulario es true entonces : si es false entonces : ... estamos usando el estado dado por context */}
             {
                 formulario ? 
                 (

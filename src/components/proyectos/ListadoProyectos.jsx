@@ -2,21 +2,26 @@ import React, { useContext, useEffect } from 'react'
 
 //23.1 importamos el componente proyecto
 import Proyecto from './Proyecto';
+
+//51. importamos el context para poder usar sus estados 
 import proyectoContext from '../../context/proyectos/proyectoContext';
 
 //22. en este componente estarán todos los proyectos existentes
 const ListadoProyectos = () => {
 
-    
+    // 51.1 le decimos que context usa la function
     const proyectosContext = useContext(proyectoContext)
+
+    // 51.2 le decimos que datos extraer del context aplicando destructuring. En este caso queremos los proyectos.
+    //57 extraemos del context la function para poder extraer los proyectos.
     const { proyectos, obtenerProyectos } = proyectosContext
 
-    //Obtener proyectos cuando carga el componente 
+    //57.1 .Obtener proyectos cuando carga el componente. usamos el hook para traer los proyectos existentes desde context al cargar la pagina, por eso el array de dependencias que indica cuando activar el useEffect esta vació. entonces el componente carga y la function traída desde el context para obtener los proyectos se acciona.
     useEffect(() => {
         obtenerProyectos()
     }, [])
     
-    //revisar si proyectos tiene contenido
+    // 51.3 revisar si proyectos tiene contenido
     if(proyectos.length === 0) return null
 
     
