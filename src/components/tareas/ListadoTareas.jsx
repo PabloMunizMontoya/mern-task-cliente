@@ -19,12 +19,7 @@ const ListadoTareas = () => {
     //101.5 usamos el array destructuring para sacar las propiedades de proyecto
     const [proyectoActual] = proyecto
 
-    const tareasProyecto = [
-        {nombre: 'Elegir Plataforma', estado: true},
-        {nombre: 'Elegir Colores', estado: false},
-        {nombre: 'Elegir Plataforma de Pago', estado: false},
-        {nombre: 'Elegir Hosting', estado: true}
-    ]
+    const tareasProyecto = []
     return ( 
         <Fragment>
 
