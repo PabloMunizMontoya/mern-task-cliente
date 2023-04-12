@@ -5,3 +5,15 @@ export const FORMULARIO_PROYECTO = 'FORMULARIO_PROYECTO'
 
 //54.1 creamos el type para obtener proyectos
 export const OBTENER_PROYECTOS = 'OBTENER_PROYECTOS'
+
+//60. agregamos el type para obtener proyectos
+export const AGREGAR_PROYECTO = 'AGREGAR_PROYECTO'
+
+//70. definimos un nuevo type para validar el formulario
+export const VALIDAR_FORMULARIO = 'VALIDAR_FORMULARIO'
+
+//80. definimos nuevo type para obtener el proyecto actual
+export const PROYECTO_ACTUAL = 'PROYECTO_ACTUAL'
+
+//101. definimos el type para eliminar proyecto
+export const ELIMINAR_PROYECTO = 'ELIMINAR_PROYECTO'
