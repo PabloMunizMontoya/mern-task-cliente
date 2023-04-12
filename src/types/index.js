@@ -11,3 +11,6 @@ export const AGREGAR_PROYECTO = 'AGREGAR_PROYECTO'
 
 //70. definimos un nuevo type para validar el formulario
 export const VALIDAR_FORMULARIO = 'VALIDAR_FORMULARIO'
+
+//80. definimos nuevo type para obtener el proyecto actual
+export const PROYECTO_ACTUAL = 'PROYECTO_ACTUAL'

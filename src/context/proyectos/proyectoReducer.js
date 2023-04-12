@@ -2,7 +2,7 @@
 
 
 //40.5 importamos los types 
-import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS, AGREGAR_PROYECTO, VALIDAR_FORMULARIO} from '../../types'
+import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS, AGREGAR_PROYECTO, VALIDAR_FORMULARIO, PROYECTO_ACTUAL} from '../../types'
 
 //34.1 la function reducer toma dos argumentos el estado actual y la function que actualiza ese estado.
 export default (state, action ) => {
@@ -41,6 +41,12 @@ export default (state, action ) => {
             return{
                 ...state,
                 errorFormulario: true
+            }
+        //80.5 creamos la acción para este type, que es seleccionar un proyecto actual. según la lógica del funcionamiento al dar click a un proyecto, se nos debe mostrar ese proyecto, esto lo hacemos con un filter en donde comparamos el id de proyecto con el payload del proyecto pasado desde el state con dispatch.
+        case PROYECTO_ACTUAL:
+            return{
+                ...state,
+                proyecto: state.proyectos.filter(proyecto => proyecto.id === action.payload.id)
             }
             default:
                 return state
