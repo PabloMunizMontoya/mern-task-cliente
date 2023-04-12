@@ -9,27 +9,30 @@ import Proyectos from './components/proyectos/Proyectos'
 //37. importamos los estados generados en el state de context a nuestro componente principal, para poder usar esos estados en todo el proyecto
 import ProyectoState from './context/proyectos/proyectoState'
 
+//110. importamos el state de tareas provistos por context 
+import TareaState from './context/tareas/tareaState'
+
 function App() {
   return (
 
     //37.1 englobamos todo el proyecto con los estados para asi poder hace uso de ellos en cada componente.
     <ProyectoState>
 
-      {/* //1. aca definimos lo que se va a ver en todas las paginas, esto es dentro del router */}
-      <Router>
+      {/* 110.1 englobamos el proyecto entero con los estados dados por context  */}
+      <TareaState>
+          {/* //1. aca definimos lo que se va a ver en todas las paginas, esto es dentro del router */}
+          <Router>
 
-        {/* 2. en routes se va a ver cada una de las paginas */}
-        <Routes>
+            {/* 2. en routes se va a ver cada una de las paginas */}
+            <Routes>
 
-          {/* 2.1 definimos nuestras rutas, que hacen referencia a los componentes  */}
-          <Route exact path= '/' element={<Login/>} />
-          <Route exact path= '/nueva-cuenta' element={<NuevaCuenta/>} />
-          <Route exact path= '/Proyectos' element={<Proyectos/>} />
-
-        </Routes>
-
-      </Router>
-      
+              {/* 2.1 definimos nuestras rutas, que hacen referencia a los componentes  */}
+              <Route exact path= '/' element={<Login/>} />
+              <Route exact path= '/nueva-cuenta' element={<NuevaCuenta/>} />
+              <Route exact path= '/Proyectos' element={<Proyectos/>} />
+            </Routes>
+          </Router>
+      </TareaState>
     </ProyectoState>
 
     

@@ -47,6 +47,7 @@ const ListadoTareas = () => {
                 <button
                     type='button'
                     className='btn btn-eliminar'
+                    
                     //101.6 le damos a un onClick el valor de la function que elimina el proyecto actual y como argumento le damosel valor obtenido en el array destructuring.en este caso es proyecto = proyectoActual 
                     onClick={() => eliminarProyecto(proyectoActual)}
                 >Eliminar proyecto &times;</button>
