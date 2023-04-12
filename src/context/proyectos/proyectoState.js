@@ -11,7 +11,7 @@ import proyectoContext from './proyectoContext'
 import proyectoReducer from './proyectoReducer'
 
 //40.1 importamos los types
-import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS,AGREGAR_PROYECTO, VALIDAR_FORMULARIO, PROYECTO_ACTUAL} from '../../types'
+import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS,AGREGAR_PROYECTO, VALIDAR_FORMULARIO, PROYECTO_ACTUAL, ELIMINAR_PROYECTO} from '../../types'
 
 
 //36 este sera el state inicial de toda la admin del proyecto, como la eliminación o creación de un proyecto
@@ -85,6 +85,15 @@ const ProyectoState = props => {
             payload: proyecto
         })
     }
+
+    //101.1 creamos la function para eliminar el proyecto, en realidad creamos el dispatch que hace correr la function que elimina el proyecto, esta function tiene como argumento el proyecto actual y le pasamos por payload el valor de ese proyecto para que en el reducer trabajemos con el.
+    const eliminarProyecto = proyecto => {
+        dispatch ({
+            type: ELIMINAR_PROYECTO,
+            payload: proyecto
+        })
+    } 
+
     //36.4 creamos el provider para que los estados y las functions se puedan usar en todo el proyecto
     return(
         <proyectoContext.Provider
@@ -115,7 +124,10 @@ const ProyectoState = props => {
                 mostrarError,
 
                 //80.4 pasamos la function al provider para seleccionar un proyecto actual
-                proyectoActual
+                proyectoActual,
+
+                //101.2 pasamos la function para eliminar el proyecto
+                eliminarProyecto
             }}
         >
             {/* 36.5 aca le decimos que los diferentes props dentro del provider pasen los datos a todos lso componentes */}

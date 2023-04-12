@@ -14,3 +14,6 @@ export const VALIDAR_FORMULARIO = 'VALIDAR_FORMULARIO'
 
 //80. definimos nuevo type para obtener el proyecto actual
 export const PROYECTO_ACTUAL = 'PROYECTO_ACTUAL'
+
+//101. definimos el type para eliminar proyecto
+export const ELIMINAR_PROYECTO = 'ELIMINAR_PROYECTO'
