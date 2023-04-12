@@ -8,3 +8,6 @@ export const OBTENER_PROYECTOS = 'OBTENER_PROYECTOS'
 
 //60. agregamos el type para obtener proyectos
 export const AGREGAR_PROYECTO = 'AGREGAR_PROYECTO'
+
+//70. definimos un nuevo type para validar el formulario
+export const VALIDAR_FORMULARIO = 'VALIDAR_FORMULARIO'

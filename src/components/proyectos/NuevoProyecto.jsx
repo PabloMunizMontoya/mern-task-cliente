@@ -12,7 +12,9 @@ const NuevoProyecto = () => {
     //39.2 extraemos los valores en proyectosContext dados por proyectoContext usando destructuring, en este caso usaremos el formulario y su estado actual.
     //40.5 queremos usar entonces la function que se encarga de cambiar el estado del formulario, esta function llega desde el context, la usamos aplicando el destructuring.
     //60.3 extraemos la function agregarProyecto del context y de esta forma la podemos usar en este componente.
-    const { formulario, mostrarFormulario, agregarProyecto } = proyectosContext
+    //70.5 extraemos la function mostrarError a este componente desde el state
+    //70.6 extraemos el state errorFormulario
+    const { formulario, mostrarFormulario, agregarProyecto, mostrarError, errorFormulario } = proyectosContext
 
     //18. creamos el useState para guardar los datos llenados en el formulario , este objeto va a tener solo una característica, y podría ser su estado inicial un string vació, pero mas adelante queremos con una librería insertar un id para poder hacer el crud tomando el valor de ese id, por esta razón es un objeto y no un string vació su estado inicial.
     const [proyecto, guardarProyecto] = useState({
@@ -37,6 +39,8 @@ const NuevoProyecto = () => {
 
         // 60.4 validamos si el proyecto existe, en el paso 18 vemos que extraemos del proyecto tomado en el useState la variable nombre con su valor. entonces si el nombre es un string vació agregamos un return que frena el onSubmit
         if(nombre === ''){
+            //70.7 ponemos aca la function que cambia el estado errorFormulario, de esta forma si el nombre no tiene nada el estado errorFormulario cambia a true y hace andar el ternario con la alerta.
+            mostrarError() 
             return
         }
 
@@ -94,6 +98,9 @@ const NuevoProyecto = () => {
 
                 ) : null
             }
+
+            {/* 70.7 usamos el estado de errorFormulario para generar un ternario */}
+            { errorFormulario ? <p className='mensaje error'>El nombre del proyecto es obligatorio</p>  : null}
         </Fragment>
     );
 }

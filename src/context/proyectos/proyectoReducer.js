@@ -2,7 +2,7 @@
 
 
 //40.5 importamos los types 
-import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS, AGREGAR_PROYECTO} from '../../types'
+import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS, AGREGAR_PROYECTO, VALIDAR_FORMULARIO} from '../../types'
 
 //34.1 la function reducer toma dos argumentos el estado actual y la function que actualiza ese estado.
 export default (state, action ) => {
@@ -26,13 +26,23 @@ export default (state, action ) => {
 
         //60.5 generamos la acción para el type AGREGAR_PROYECTO, entonces primero generamos una copia del estado actual del proyecto para no modificar el original ...state  y luego le decimos que ahora el valor de proyectos es el valor de todos los proyectos que ya existen previos y ademas sumamos el payload que viene del state desde el dispatch para este type, este payload contiene el proyecto nuevo. de esta forma queda muy claro que el reducer genera cambios en los states iniciales y que ademas puede tomar los estados de otro type para operar, en este punto lo que hacemos es agregar el nuevo proyecto al estado proyectos.
         //60.6 luego le decimos a formulario que regrese a ser false para que de esta forma la opción de agregar un proyecto desaparezca tras agregar uno nuevo.
+        //70.8 una vez que un proyecto a sido agregado sacamos la alerta de error cambiando el estado de errorFormulario 
         case AGREGAR_PROYECTO:
             return {
                 ...state,
                 proyectos: [...state.proyectos, action.payload],
-                formulario: false
+                formulario: false,
+                errorFormulario: false
             }
-        default: 
-            return state
+        
+            
+        //70.4 pasamos la acción para este type, retornamos una copia del state para que lo que halla en ese estado lo mantenga y luego le pasamos el cambio del estado inicial dado en el state, en un inicio estaba en false y tras correr esta function se pone en true. 
+        case VALIDAR_FORMULARIO:
+            return{
+                ...state,
+                errorFormulario: true
+            }
+            default:
+                return state
     }
 }
