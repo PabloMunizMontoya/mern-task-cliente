@@ -5,7 +5,7 @@ import TareaContext from './tareaContext'
 import TareaReducer from './tareaReducer'
 
 //113. importamos los types
-import {TAREAS_PROYECTO} from '../../types'
+import {TAREAS_PROYECTO, AGREGAR_TAREA} from '../../types'
 
 //109.1 este es el estado inicial o todos los estados iniciales con los que vamos a trabajar o despachar.
 const TareaState = props => {
@@ -37,6 +37,14 @@ const TareaState = props => {
     }
 
 
+    //117 creamos la function que agrega tareas al proyecto seleccionado
+    const agregarTarea = tarea => {
+        dispatch({
+            type: AGREGAR_TAREA,
+            payload: tarea
+        })
+    }
+
     //109.3 retornamos nuestro context con un provider para poder usar todos los valores en nuestro proyecto
     return (
         <TareaContext.Provider
@@ -46,6 +54,9 @@ const TareaState = props => {
 
                 //114.1 pasamos la function obtener tareas al provider y de esta forma poder usarla en todo el proyecto
                 obtenerTareas,
+
+                //117.1 agregamos la function agregar tarea al provider
+                agregarTarea,
 
                 //116 pasamos el estado tareasProyecto al provider
                 tareasProyecto: state.tareasProyecto
