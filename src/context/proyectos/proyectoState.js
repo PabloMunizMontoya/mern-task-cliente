@@ -23,7 +23,7 @@ const ProyectoState = props => {
         {id : 2, nombre: 'Intranet'},
         {id : 3, nombre: 'Diseño de sitio web'}
     ]
-
+    
     //36.1 este sera entonces el state inicial de los proyectos, formulario comienza en false y una vez que el usuario le de click al boton nuevo proyecto el valor formulario pasara a true y se mostrara en pantalla el formulario para poner la data.
     //52. nuestros proyectos inician como un array vació, por ende cuando mandemos a llamar el dispatch este array vació cambiara de estado en function de lo indicado por el reducer.
     //70.2 iniciamos una nueva pieza del state inicial para el error del formulario de nuevos proyectos.
@@ -33,8 +33,9 @@ const ProyectoState = props => {
         formulario : false,
         errorFormulario: false,
         proyecto: null
+        
     }
-
+    
     //36.2 dispatch para ejecutar las acciones, el hook useReducer crea un estado y una function para actualizar el estado inicial. el primer argumento proyectoReducer es una function reducer que se utiliza para actualizar el estado, esta function esta en proyectoReducer esta function devuelve un nuevo estado basado en la acción que se ha realizado. el segundo argumento initialState es el estado inicial que se utiliza para inicializar el estado.
     //En resumen, este código crea un estado y una función para actualizar ese estado utilizando el hook useReducer. La función reducer proyectoReducer se utiliza para actualizar el estado basado en las acciones enviadas a través de la función dispatch. El estado inicial se establece en initialState.
     //el dispatch ejecuta los diferentes types
@@ -49,13 +50,14 @@ const ProyectoState = props => {
             type: FORMULARIO_PROYECTO
         })
     }
-
+    
     //54. obtener los proyectos es similar a la function de arriba hacemos un dispatch para que el reductor sepa a que tipo type hacer la action, La propiedad payload se utiliza para enviar datos adicionales junto con la acción. En este caso, proyectos es el valor que se está enviando como payload. Esto significa que la acción OBTENER_PROYECTOS puede utilizar estos datos para actualizar el estado del Context en consecuencia.
 
     const obtenerProyectos = () => {
         dispatch({
             type: OBTENER_PROYECTOS,
             payload: proyectos
+            
         })
     }
     

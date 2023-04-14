@@ -1,6 +1,7 @@
 import React, {Fragment, useContext} from 'react';
 import Tarea from './Tarea';
 import proyectoContext from '../../context/proyectos/proyectoContext';
+import TareaContext from '../../context/tareas/tareaContext';
 
 //29 en este componente estarán las tareas de cada proyecto en especifico 
 const ListadoTareas = () => {
@@ -12,6 +13,11 @@ const ListadoTareas = () => {
     //101.4 traemos la function eliminar proyecto al componente
     const { proyecto, eliminarProyecto } = proyectosContext
 
+     //116 extraemos el context que queremos usar 
+    const tareasContext = useContext(TareaContext)
+     //116.1 extraemos lo que deseamos usar del context en el componente 
+     const {tareasProyecto} = tareasContext
+
     //90.4 como estamos tratando de acceder a un proyecto en el siguiente paso usando el array destructuring, si no hay ningún proyecto va a saltar un error, para prevenir esto: 
     if(!proyecto) return <h2>Selecciona un proyecto</h2>
     
@@ -19,12 +25,6 @@ const ListadoTareas = () => {
     //101.5 usamos el array destructuring para sacar las propiedades de proyecto
     const [proyectoActual] = proyecto
 
-    const tareasProyecto = [
-        {nombre: 'Elegir Plataforma', estado: true},
-        {nombre: 'Elegir Colores', estado: false},
-        {nombre: 'Elegir Plataforma de Pago', estado: false},
-        {nombre: 'Elegir Hosting', estado: true}
-    ]
     return ( 
         <Fragment>
 
@@ -47,6 +47,7 @@ const ListadoTareas = () => {
                 <button
                     type='button'
                     className='btn btn-eliminar'
+                    
                     //101.6 le damos a un onClick el valor de la function que elimina el proyecto actual y como argumento le damosel valor obtenido en el array destructuring.en este caso es proyecto = proyectoActual 
                     onClick={() => eliminarProyecto(proyectoActual)}
                 >Eliminar proyecto &times;</button>

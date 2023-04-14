@@ -17,3 +17,12 @@ export const PROYECTO_ACTUAL = 'PROYECTO_ACTUAL'
 
 //101. definimos el type para eliminar proyecto
 export const ELIMINAR_PROYECTO = 'ELIMINAR_PROYECTO'
+
+//112. definimos el type para las tareas del proyecto
+export const TAREAS_PROYECTO = 'TAREAS_PROYECTO'
+
+//117 type para agregar tarea
+export const AGREGAR_TAREA = 'AGREGAR_TAREA'
+
+//122 creamos el type para validar el formulario de agregar tarea
+export const VALIDAR_NUEVA_TAREA = 'VALIDAR_NUEVA_TAREA'
