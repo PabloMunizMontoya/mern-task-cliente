@@ -5,7 +5,7 @@ import TareaContext from './tareaContext'
 import TareaReducer from './tareaReducer'
 
 //113. importamos los types
-import {TAREAS_PROYECTO, AGREGAR_TAREA} from '../../types'
+import {TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_NUEVA_TAREA} from '../../types'
 
 //109.1 este es el estado inicial o todos los estados iniciales con los que vamos a trabajar o despachar.
 const TareaState = props => {
@@ -20,8 +20,9 @@ const TareaState = props => {
         {nombre: 'Elegir Colores', estado: false, proyectoId: 3},
         {nombre: 'Elegir Plataforma de Pago', estado: false},
         {nombre: 'Elegir Hosting', estado: true, proyectoId: 1}
-        ]
-        
+        ],
+        //121. agregamos un state inicial para el error de la tarea nueva, lo usaremos para validar el formulario
+        errorTarea: false
     }
 
     //109.2 con array destructuring creamos el state y el dispatch que vienen de el hook useReducer. useReducer es una function que toma dos parámetros,  el reducer y el state inicial.
@@ -45,6 +46,14 @@ const TareaState = props => {
         })
     }
 
+    //123. valida y muestra un error en caso de que sea necesario
+    const validarTarea = () => {
+        dispatch({
+            type: VALIDAR_NUEVA_TAREA
+            
+        })
+    }
+
     //109.3 retornamos nuestro context con un provider para poder usar todos los valores en nuestro proyecto
     return (
         <TareaContext.Provider
@@ -59,7 +68,13 @@ const TareaState = props => {
                 agregarTarea,
 
                 //116 pasamos el estado tareasProyecto al provider
-                tareasProyecto: state.tareasProyecto
+                tareasProyecto: state.tareasProyecto,
+
+                //121.1 pasamos el estado para el error de la tarea
+                errorTarea: state.errorTarea,
+
+                //123.1 pasamos la function que cambia el estado del erroTarea
+                validarTarea
 
             }}
         >

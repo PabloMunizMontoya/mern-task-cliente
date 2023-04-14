@@ -23,3 +23,6 @@ export const TAREAS_PROYECTO = 'TAREAS_PROYECTO'
 
 //117 type para agregar tarea
 export const AGREGAR_TAREA = 'AGREGAR_TAREA'
+
+//122 creamos el type para validar el formulario de agregar tarea
+export const VALIDAR_NUEVA_TAREA = 'VALIDAR_NUEVA_TAREA'
