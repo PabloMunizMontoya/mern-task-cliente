@@ -40,6 +40,7 @@ const ListadoTareas = () => {
                     /* 29.2 en caso de que si hallan tareas, hacemos un map y le otorgamos el valor de ese map como propiedades al componente Tarea */
                     : tareasProyecto.map (tarea => (
                         <Tarea
+                            key={tarea.id}
                             tarea={tarea}
                         />
                     ))

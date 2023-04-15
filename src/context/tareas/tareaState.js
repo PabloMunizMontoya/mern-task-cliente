@@ -5,21 +5,21 @@ import TareaContext from './tareaContext'
 import TareaReducer from './tareaReducer'
 
 //113. importamos los types
-import {TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_NUEVA_TAREA} from '../../types'
+import {TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_NUEVA_TAREA, ELIMINAR_TAREA} from '../../types'
 
 //109.1 este es el estado inicial o todos los estados iniciales con los que vamos a trabajar o despachar.
 const TareaState = props => {
     const initialState = {
         tareasProyecto: null,
         tareas: [
-        {nombre: 'Elegir Plataforma', estado: true, proyectoId: 1},
-        {nombre: 'Elegir Colores', estado: false, proyectoId: 2},
-        {nombre: 'Elegir Plataforma de Pago', estado: false},
-        {nombre: 'Elegir Hosting', estado: true, proyectoId: 3},
-        {nombre: 'Elegir Plataforma', estado: true, proyectoId: 2},
-        {nombre: 'Elegir Colores', estado: false, proyectoId: 3},
-        {nombre: 'Elegir Plataforma de Pago', estado: false},
-        {nombre: 'Elegir Hosting', estado: true, proyectoId: 1}
+        {id:1, nombre: 'Elegir Plataforma', estado: true, proyectoId: 1},
+        {id:2, nombre: 'Elegir Colores', estado: false, proyectoId: 2},
+        {id:3, nombre: 'Elegir Plataforma de Pago', estado: false},
+        {id:4, nombre: 'Elegir Hosting', estado: true, proyectoId: 3},
+        {id:5, nombre: 'Elegir Plataforma', estado: true, proyectoId: 2},
+        {id:6, nombre: 'Elegir Colores', estado: false, proyectoId: 3},
+        {id:7, nombre: 'Elegir Plataforma de Pago', estado: false},
+        {id:8, nombre: 'Elegir Hosting', estado: true, proyectoId: 1}
         ],
         //121. agregamos un state inicial para el error de la tarea nueva, lo usaremos para validar el formulario
         errorTarea: false
@@ -54,6 +54,15 @@ const TareaState = props => {
         })
     }
 
+    //126. creamos la function que va a eliminar la tarea por su id 
+    const eliminarTarea = id => {
+        dispatch({
+            type: ELIMINAR_TAREA,
+            payload: id
+        })
+        
+    }
+
     //109.3 retornamos nuestro context con un provider para poder usar todos los valores en nuestro proyecto
     return (
         <TareaContext.Provider
@@ -74,7 +83,10 @@ const TareaState = props => {
                 errorTarea: state.errorTarea,
 
                 //123.1 pasamos la function que cambia el estado del erroTarea
-                validarTarea
+                validarTarea,
+
+                //126.1
+                eliminarTarea
 
             }}
         >
