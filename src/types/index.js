@@ -26,3 +26,6 @@ export const AGREGAR_TAREA = 'AGREGAR_TAREA'
 
 //122 creamos el type para validar el formulario de agregar tarea
 export const VALIDAR_NUEVA_TAREA = 'VALIDAR_NUEVA_TAREA'
+
+//126 creamos el type para eliminar la tarea
+export const ELIMINAR_TAREA = 'ELIMINAR_TAREA'
