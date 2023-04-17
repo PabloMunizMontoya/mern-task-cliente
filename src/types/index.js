@@ -29,3 +29,6 @@ export const VALIDAR_NUEVA_TAREA = 'VALIDAR_NUEVA_TAREA'
 
 //126 creamos el type para eliminar la tarea
 export const ELIMINAR_TAREA = 'ELIMINAR_TAREA'
+
+//129 creamos el type para modificar el estado de la tarea
+export const ESTADO_TAREA = 'ESTADO_TAREA'
