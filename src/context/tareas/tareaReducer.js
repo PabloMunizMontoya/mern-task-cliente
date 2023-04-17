@@ -18,7 +18,7 @@ export default (state,action) => {
         case AGREGAR_TAREA:
             return{
                 ...state,
-                tareas: [...state.tareas, action.payload],
+                tareas: [ action.payload,...state.tareas],
                 //124.2 si el su usuario comete un error y en el formulario de tarea no pone nada y le da click al submit, error tarea quedaría en true y se mostraría la alerta correspondiente, ahora si el ususario pone un nombre a la tarea y la tarea se agrega deseamos sacar la alerta por esta razón ponemos aca otra vez errorTarea en su estado inicial
                 errorTarea:false
             }

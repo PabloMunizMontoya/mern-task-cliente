@@ -2,6 +2,7 @@ import React, {Fragment, useContext} from 'react';
 import Tarea from './Tarea';
 import proyectoContext from '../../context/proyectos/proyectoContext';
 import TareaContext from '../../context/tareas/tareaContext';
+import {CSSTransition, TransitionGroup} from 'react-transition-group'
 
 //29 en este componente estarán las tareas de cada proyecto en especifico 
 const ListadoTareas = () => {
@@ -38,12 +39,21 @@ const ListadoTareas = () => {
                     ? (<li className='tarea'><p>No hay tareas</p></li>)
 
                     /* 29.2 en caso de que si hallan tareas, hacemos un map y le otorgamos el valor de ese map como propiedades al componente Tarea */
-                    : tareasProyecto.map (tarea => (
-                        <Tarea
-                            key={tarea.id}
-                            tarea={tarea}
-                        />
-                    ))
+
+                    : /* 127 usamos el Transition group para añadir una animación a la tarea, en la hoja de estilos css tenemos class names llamados tarea allí se le da el estilo a la animación */
+                    <TransitionGroup>
+                        {tareasProyecto.map (tarea => (
+                            <CSSTransition
+                                key={tarea.id}
+                                timeout={2000}
+                                classNames='tarea'
+                            >
+                                <Tarea
+                                    tarea={tarea}
+                                />
+                            </CSSTransition>
+                        ))}
+                    </TransitionGroup>
                 }
                 <button
                     type='button'
