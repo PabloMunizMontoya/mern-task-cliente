@@ -29,3 +29,12 @@ export const VALIDAR_NUEVA_TAREA = 'VALIDAR_NUEVA_TAREA'
 
 //126 creamos el type para eliminar la tarea
 export const ELIMINAR_TAREA = 'ELIMINAR_TAREA'
+
+//129 creamos el type para modificar el estado de la tarea
+export const ESTADO_TAREA = 'ESTADO_TAREA'
+
+//131 creamos el type para poder editar la tarea, entonces si hay una tarea actual el formulario va a cambiar.
+export const TAREA_ACTUAL = 'TAREA_ACTUAL'
+
+//136
+export const ACTUALIZAR_TAREA = 'ACTUALIZAR_TAREA'

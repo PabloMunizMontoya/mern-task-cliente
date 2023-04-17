@@ -5,7 +5,7 @@ import TareaContext from './tareaContext'
 import TareaReducer from './tareaReducer'
 
 //113. importamos los types
-import {TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_NUEVA_TAREA, ELIMINAR_TAREA} from '../../types'
+import {TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_NUEVA_TAREA, ELIMINAR_TAREA, ESTADO_TAREA, TAREA_ACTUAL, ACTUALIZAR_TAREA} from '../../types'
 
 //109.1 este es el estado inicial o todos los estados iniciales con los que vamos a trabajar o despachar.
 const TareaState = props => {
@@ -22,7 +22,10 @@ const TareaState = props => {
         {id:8, nombre: 'Elegir Hosting', estado: true, proyectoId: 1}
         ],
         //121. agregamos un state inicial para el error de la tarea nueva, lo usaremos para validar el formulario
-        errorTarea: false
+        errorTarea: false,
+
+        //134 tenemos que definir un state inicial para guardar la tarea que queremos editar, si no hay ninguna tarea seleccionada este valor es null
+        tareaSeleccionada :null
     }
 
     //109.2 con array destructuring creamos el state y el dispatch que vienen de el hook useReducer. useReducer es una function que toma dos parámetros,  el reducer y el state inicial.
@@ -63,6 +66,31 @@ const TareaState = props => {
         
     }
 
+    //129 creamos la function para cambiar el estado de la tarea, este payload tarea viene del componente tarea, esta tarea es la tarea que corresponde al proyecto. 
+    const cambiarEstadoTarea = tarea => {
+        dispatch({
+            type: ESTADO_TAREA,
+            payload: tarea
+        })
+        
+    }
+
+    //132 extraer una tarea para editarla
+    const guardarTareaActual  = tarea => {
+        dispatch({
+            type: TAREA_ACTUAL,
+            payload: tarea 
+        })
+    }
+
+    // 137 edita o modifica una tarea
+    const actualizarTarea = tarea => {
+        dispatch({
+            type: ACTUALIZAR_TAREA,
+            payload: tarea
+        })
+    }
+
     //109.3 retornamos nuestro context con un provider para poder usar todos los valores en nuestro proyecto
     return (
         <TareaContext.Provider
@@ -86,7 +114,19 @@ const TareaState = props => {
                 validarTarea,
 
                 //126.1
-                eliminarTarea
+                eliminarTarea,
+
+                // 129.1 
+                cambiarEstadoTarea,
+
+                //132.1
+                guardarTareaActual,
+
+                //134.1 
+                tareaSeleccionada: state.tareaSeleccionada,
+
+                //137.1
+                actualizarTarea
 
             }}
         >

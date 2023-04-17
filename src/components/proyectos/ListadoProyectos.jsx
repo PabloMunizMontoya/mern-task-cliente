@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react'
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 //23.1 importamos el componente proyecto
 import Proyecto from './Proyecto';
@@ -31,12 +32,22 @@ const ListadoProyectos = () => {
 
         <ul className='listado-proyectos'>
             {/* 26 hacemos un map a proyectos para renderizarlos a todos, este map le dará las propiedades al componente Proyecto y estas propiedades luego se usaran en el componente, por ende si hay 5 proyectos harán 5 propiedades proyecto y 5 id */}
-            {proyectos.map(proyecto => (
-                <Proyecto
-                    key = {proyecto.id}
-                    proyecto={proyecto}
-                />
-            ))}
+            
+            {/* 28 creamos una transition para cuando abrimos un nuevo proyecto u eliminamos o creamos un nuevo proyecto */}
+            <TransitionGroup>
+                {proyectos.map(proyecto => (   
+                    <CSSTransition
+                        key = {proyecto.id}
+                        timeout={1000}
+                        classNames='proyecto'
+                    >
+                        <Proyecto
+                            proyecto={proyecto}
+                    />
+                    </CSSTransition>
+                ))}
+            </TransitionGroup>
+            
         </ul>
     );
 }
