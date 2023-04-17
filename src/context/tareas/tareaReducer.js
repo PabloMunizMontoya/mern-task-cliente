@@ -1,7 +1,7 @@
 //108. el reducer contiene las functions que van a interactuar con el state, El reducer es una forma de manejar la lógica de actualización del estado de forma centralizada. En lugar de modificar directamente el estado, los componentes pueden enviar acciones al reducer. El reducer procesa la acción y devuelve el nuevo estado, que luego se actualiza en el Provider. el reducer toma dos parámetros un state y un action, en donde state es el estado inicial y el action es la function y el cambio de ese ese estado inicial a traves de la function.
 
 //116 importamos los types con los que el reducer va a trabajar
-import {TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_NUEVA_TAREA, ELIMINAR_TAREA, ESTADO_TAREA} from '../../types'
+import {TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_NUEVA_TAREA, ELIMINAR_TAREA, ESTADO_TAREA, TAREA_ACTUAL} from '../../types'
 
 //108.1 creamos los case para el reducer, este toma un estado y una action
 export default (state,action) => {
@@ -43,6 +43,13 @@ export default (state,action) => {
                 ...state,
                 tareas: state.tareasProyecto.map(tarea => tarea.id === action.payload.id ? action.payload : tarea )
             }
+
+        //133
+        case TAREA_ACTUAL:
+            return{
+                ...state,
+                tareaSeleccionada: action.payload
+            } 
 
         default:
             return state

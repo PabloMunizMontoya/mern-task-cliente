@@ -10,7 +10,7 @@ const Tarea = ({tarea}) => {
     const tareasContext = useContext(TareaContext)
 
     //128.1 extraemos lo que deseamos usar del context en el componente
-    const {eliminarTarea, obtenerTareas, cambiarEstadoTarea} = tareasContext
+    const {eliminarTarea, obtenerTareas, cambiarEstadoTarea, guardarTareaActual} = tareasContext
 
     //130 le decimos que context usar 
     const proyectosContext = useContext(proyectoContext)
@@ -32,6 +32,11 @@ const Tarea = ({tarea}) => {
             tarea.estado = true
         }
         cambiarEstadoTarea(tarea)
+    }
+
+    //132.3 agrega una tarea actual cuando el usuario desea editarla 
+    const seleccionarTarea = tarea => {
+        guardarTareaActual(tarea)
     }
     
 
@@ -71,6 +76,8 @@ const Tarea = ({tarea}) => {
                 <button
                     type='button'
                     className='btn btn-primario'
+                    //132.3 function que se activa al dar click en editar
+                    onClick={() =>seleccionarTarea(tarea)}
                 >Editar</button>
 
                 <button
