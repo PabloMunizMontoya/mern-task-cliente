@@ -1,7 +1,7 @@
 //108. el reducer contiene las functions que van a interactuar con el state, El reducer es una forma de manejar la lógica de actualización del estado de forma centralizada. En lugar de modificar directamente el estado, los componentes pueden enviar acciones al reducer. El reducer procesa la acción y devuelve el nuevo estado, que luego se actualiza en el Provider. el reducer toma dos parámetros un state y un action, en donde state es el estado inicial y el action es la function y el cambio de ese ese estado inicial a traves de la function.
 
 //116 importamos los types con los que el reducer va a trabajar
-import {TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_NUEVA_TAREA, ELIMINAR_TAREA, ESTADO_TAREA, TAREA_ACTUAL} from '../../types'
+import {TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_NUEVA_TAREA, ELIMINAR_TAREA, ESTADO_TAREA, TAREA_ACTUAL, ACTUALIZAR_TAREA} from '../../types'
 
 //108.1 creamos los case para el reducer, este toma un estado y una action
 export default (state,action) => {
@@ -38,10 +38,11 @@ export default (state,action) => {
             }
             
         //131 creamos la acción para el estado de la tarea, como payload traemos la tarea que corresponde al id del proyecto, cada tarea tiene ademas un id propio entonces hacemos un map de las tareas del proyecto iterando cada tarea si la tarea.id === al aid del payload renderizamos el payload si no renderizamos la tarea que ya esta. esto es por que el estado ya esta cambiando en el componente tarea lo que aca queremos hacer es renderizar las tareas con su nuevo estado.
+        case ACTUALIZAR_TAREA:
         case ESTADO_TAREA:
             return{
                 ...state,
-                tareas: state.tareasProyecto.map(tarea => tarea.id === action.payload.id ? action.payload : tarea )
+                tareas: state.tareas.map(tarea => tarea.id === action.payload.id ? action.payload : tarea )
             }
 
         //133
@@ -50,6 +51,8 @@ export default (state,action) => {
                 ...state,
                 tareaSeleccionada: action.payload
             } 
+
+        //138 
 
         default:
             return state

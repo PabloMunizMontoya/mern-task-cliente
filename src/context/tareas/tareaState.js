@@ -5,7 +5,7 @@ import TareaContext from './tareaContext'
 import TareaReducer from './tareaReducer'
 
 //113. importamos los types
-import {TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_NUEVA_TAREA, ELIMINAR_TAREA, ESTADO_TAREA, TAREA_ACTUAL} from '../../types'
+import {TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_NUEVA_TAREA, ELIMINAR_TAREA, ESTADO_TAREA, TAREA_ACTUAL, ACTUALIZAR_TAREA} from '../../types'
 
 //109.1 este es el estado inicial o todos los estados iniciales con los que vamos a trabajar o despachar.
 const TareaState = props => {
@@ -24,7 +24,7 @@ const TareaState = props => {
         //121. agregamos un state inicial para el error de la tarea nueva, lo usaremos para validar el formulario
         errorTarea: false,
 
-        //134 tenemos que definir un state inicial para guardar la tarea que queremos editar
+        //134 tenemos que definir un state inicial para guardar la tarea que queremos editar, si no hay ninguna tarea seleccionada este valor es null
         tareaSeleccionada :null
     }
 
@@ -83,6 +83,14 @@ const TareaState = props => {
         })
     }
 
+    // 137 edita o modifica una tarea
+    const actualizarTarea = tarea => {
+        dispatch({
+            type: ACTUALIZAR_TAREA,
+            payload: tarea
+        })
+    }
+
     //109.3 retornamos nuestro context con un provider para poder usar todos los valores en nuestro proyecto
     return (
         <TareaContext.Provider
@@ -115,7 +123,10 @@ const TareaState = props => {
                 guardarTareaActual,
 
                 //134.1 
-                tareaSeleccionada: state.tareaSeleccionada
+                tareaSeleccionada: state.tareaSeleccionada,
+
+                //137.1
+                actualizarTarea
 
             }}
         >
