@@ -42,7 +42,8 @@ export default (state,action) => {
         case ESTADO_TAREA:
             return{
                 ...state,
-                tareas: state.tareas.map(tarea => tarea.id === action.payload.id ? action.payload : tarea )
+                tareas: state.tareas.map(tarea => tarea.id === action.payload.id ? action.payload : tarea ),
+                tareaSeleccionada:null
             }
 
         //133

@@ -3,6 +3,7 @@
 import React, {useReducer} from 'react'
 import TareaContext from './tareaContext'
 import TareaReducer from './tareaReducer'
+import { v4 as uuidv4 } from 'uuid';
 
 //113. importamos los types
 import {TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_NUEVA_TAREA, ELIMINAR_TAREA, ESTADO_TAREA, TAREA_ACTUAL, ACTUALIZAR_TAREA} from '../../types'
@@ -43,6 +44,7 @@ const TareaState = props => {
 
     //117 creamos la function que agrega tareas al proyecto seleccionado
     const agregarTarea = tarea => {
+        tarea.id = uuidv4()
         dispatch({
             type: AGREGAR_TAREA,
             payload: tarea
