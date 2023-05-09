@@ -15,7 +15,10 @@ import TareaState from './context/tareas/tareaState'
 import AlertasState from './context/alertas/alertasState'
 
 import AuthState from './context/autenticacion/authState'
+
 function App() {
+
+  console.log(process.env.REACT_APP_BACKEND_URL)
   return (
 
     //37.1 englobamos todo el proyecto con los estados para asi poder hace uso de ellos en cada componente.
