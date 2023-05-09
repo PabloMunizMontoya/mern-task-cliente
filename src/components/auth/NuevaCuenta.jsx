@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+//175 refrescar data de como use alerta: importamos el context de alerta, luego le ponemos el valor a una variable, luego extraemos con array destructuring lo que queremos usar desde context, en este caso alerta es el estado inicial : null y mostrar alerta es lo que despacha la acción y ademas tiene los datos necesarios enviados por payload, después en el on submit hacemos una comprobación para verificar si los datos del formulario son correctos y si no lo son mandamos a llamar la function mostrarAlerta, esta function tiene como argumento lo que enviamos desde el payload el msg y la categoria, le damos valor aca a esos argumentos, en donde msg es el mensaje y la categoria hace referencia a un tipo de css en nuestra hoja de estilos.
+
+import alertasContext from '../../context/alertas/alertasContext'
+import React, { useState, useContext } from 'react'
 import {Link} from 'react-router-dom'
 
 const NuevaCuenta = () => {
+
+    const alertaContext = useContext(alertasContext)
+    const {alerta, mostrarAlerta} = alertaContext
 
     //12 le damos al usuario los nuevos valores name del formulario usando un useState.
     const [usuario, guardarUsuario] = useState({
@@ -24,10 +30,26 @@ const NuevaCuenta = () => {
 
     const onSubmit = e => {
         e.preventDefault()
+
+        if(nombre.trim() === '' || password.trim() === '' ||  email.trim() === '' || confirmar.trim() === ''){
+            mostrarAlerta('Todos los campos son obligatorios', 'alerta-error')
+            return
+        }
+
+        if(password.length < 6) {
+            mostrarAlerta('El password debe ser de al menos 6 caracteres', 'alerta-error')
+            return
+        }
+
+        if(password !== confirmar) {
+            mostrarAlerta('El password debe ser igual al password de confirmación', 'alerta-error')
+            return
+        }
     }
 
     return ( 
         <div className='form-usuario'>
+            {alerta ? (<div className={`alerta ${alerta.categoria}`}>{alerta.msg}</div>) : null }
             <div className='contenedor-form sobra-dark'>
                 <h1>Obtener Cuenta</h1>
 

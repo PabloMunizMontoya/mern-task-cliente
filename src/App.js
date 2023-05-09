@@ -14,29 +14,30 @@ import TareaState from './context/tareas/tareaState'
 
 import AlertasState from './context/alertas/alertasState'
 
+import AuthState from './context/autenticacion/authState'
 function App() {
   return (
 
     //37.1 englobamos todo el proyecto con los estados para asi poder hace uso de ellos en cada componente.
     <ProyectoState>
+        {/* 110.1 englobamos el proyecto entero con los estados dados por context  */}
+        <TareaState>
+          <AlertasState>
+            <AuthState>
+              {/* //1. aca definimos lo que se va a ver en todas las paginas, esto es dentro del router */}
+              <Router>
+                {/* 2. en routes se va a ver cada una de las paginas */}
+                <Routes>
 
-      {/* 110.1 englobamos el proyecto entero con los estados dados por context  */}
-      <TareaState>
-        <AlertasState>
-          {/* //1. aca definimos lo que se va a ver en todas las paginas, esto es dentro del router */}
-          <Router>
-
-            {/* 2. en routes se va a ver cada una de las paginas */}
-            <Routes>
-
-              {/* 2.1 definimos nuestras rutas, que hacen referencia a los componentes  */}
-              <Route exact path= '/' element={<Login/>} />
-              <Route exact path= '/nueva-cuenta' element={<NuevaCuenta/>} />
-              <Route exact path= '/Proyectos' element={<Proyectos/>} />
-            </Routes>
-          </Router>
-        </AlertasState> 
-      </TareaState>
+                  {/* 2.1 definimos nuestras rutas, que hacen referencia a los componentes  */}
+                  <Route exact path= '/' element={<Login/>} />
+                  <Route exact path= '/nueva-cuenta' element={<NuevaCuenta/>} />
+                  <Route exact path= '/Proyectos' element={<Proyectos/>} />
+                </Routes>
+              </Router>
+            </AuthState>  
+          </AlertasState> 
+        </TareaState>
     </ProyectoState>
 
     
