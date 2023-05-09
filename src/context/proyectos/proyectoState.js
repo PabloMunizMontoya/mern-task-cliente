@@ -41,9 +41,6 @@ const ProyectoState = props => {
     //el dispatch ejecuta los diferentes types
     const [state, dispatch] = useReducer(proyectoReducer, initialState)
 
-    //36.3 Serie de funciones para el crud
-
-
     //40.2 definimos la function que va a mostrar el formulario, aca deberíamos usar un payload si es que quisiéramos que el formulario tuviese info pero en este caso lo que queremos es que la function valla a types y a traves de esa referencia le indique al reducer que hacer con el estado del formulario que esta inicialmente como false. entonces despachamos type: FORMULARIO_PROYECTO y en el reductor le decimos que cambio hacer a este type que hace referencia al formulario. entonces el type que va a evaluar el switch (action.type) dentro del reductor es el que se le indica con el dispatch.
     const mostrarFormulario = () => {
         dispatch ({

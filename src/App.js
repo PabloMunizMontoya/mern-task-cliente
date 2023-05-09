@@ -12,6 +12,8 @@ import ProyectoState from './context/proyectos/proyectoState'
 //110. importamos el state de tareas provistos por context 
 import TareaState from './context/tareas/tareaState'
 
+import AlertasState from './context/alertas/alertasState'
+
 function App() {
   return (
 
@@ -20,6 +22,7 @@ function App() {
 
       {/* 110.1 englobamos el proyecto entero con los estados dados por context  */}
       <TareaState>
+        <AlertasState>
           {/* //1. aca definimos lo que se va a ver en todas las paginas, esto es dentro del router */}
           <Router>
 
@@ -32,6 +35,7 @@ function App() {
               <Route exact path= '/Proyectos' element={<Proyectos/>} />
             </Routes>
           </Router>
+        </AlertasState> 
       </TareaState>
     </ProyectoState>
 

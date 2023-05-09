@@ -38,3 +38,9 @@ export const TAREA_ACTUAL = 'TAREA_ACTUAL'
 
 //136
 export const ACTUALIZAR_TAREA = 'ACTUALIZAR_TAREA'
+
+//172 type para poder mostrar las alertas
+export const MOSTRAR_ALERTA = 'MOSTRAR_ALERTA'
+
+//173
+export const OCULTAR_ALERTA = 'OCULTAR_ALERTA'
