@@ -24,19 +24,29 @@ const AuthState = props => {
         try {
 
             //recordemos que cliente axios tiene la url a la que se le hace la petición y los datos son lo que le vamos a enviar a la api mediante a la ruta
-            const respuesta = await clienteAxios.post('/api/usuario', datos)
-            console.log(respuesta)
+            const respuesta = await clienteAxios.post('/api/usuarios', datos)
+            console.log(respuesta.data)
 
-            //hacemos un dispatch al type de registro exitoso
+            //hacemos un dispatch al type de registro exitoso, si miramos el objeto que trae respuesta, en respuesta.data tenemos el token, entonces ese dato es lo que necesitamos pasar como payload.
             dispatch({
-                type: REGISTRO_EXITOSO
+                type: REGISTRO_EXITOSO,
+                payload : respuesta.data
             })
         } catch (error) {
-            console.log(error)
+            //error.response es la forma de acceder a los errores en axios.
+            //después debemos ver que parte del error necesitamos en este caso error.response.data.msg nos trae el mensaje de error que buscamos.
+            //el valor de esta ruta lo definimos como el mensaje de la alerta.
+            console.log(error.response.data.msg)
+            const alerta = {
+                msg: error.response.data.msg,
+                categoria: 'alerta-error'
+            }
 
             //si hay un error se hace un dispatch al type de registro error
+            // el error despacha un payload qeu es alerta esta variable le dimos valor arriba.
             dispatch({
-                type: REGISTRO_ERROR
+                type: REGISTRO_ERROR,
+                payload: alerta
             })
         }
     }

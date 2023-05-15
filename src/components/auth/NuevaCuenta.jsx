@@ -1,19 +1,34 @@
 //175 refrescar data de como use alerta: importamos el context de alerta, luego le ponemos el valor a una variable, luego extraemos con array destructuring lo que queremos usar desde context, en este caso alerta es el estado inicial : null y mostrar alerta es lo que despacha la acción y ademas tiene los datos necesarios enviados por payload, después en el on submit hacemos una comprobación para verificar si los datos del formulario son correctos y si no lo son mandamos a llamar la function mostrarAlerta, esta function tiene como argumento lo que enviamos desde el payload el msg y la categoria, le damos valor aca a esos argumentos, en donde msg es el mensaje y la categoria hace referencia a un tipo de css en nuestra hoja de estilos.
 
 import alertasContext from '../../context/alertas/alertasContext'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import AuthContext from '../../context/autenticacion/authContext'
 
-const NuevaCuenta = () => {
+const NuevaCuenta = (props) => {
 
     const alertaContext = useContext(alertasContext)
     const {alerta, mostrarAlerta} = alertaContext
 
     //extraemos lo que necesitamos del authContext
     const authContext = useContext(AuthContext)
-    const { registrarUsuario} = authContext
+    const { mensaje, autenticado, registrarUsuario} = authContext
 
+    // en caso de que el usuario se halla autenticado o registrado o sea un registro duplicado
+    useEffect(()=> {
+
+        //aca lo que hacemos es que una vez que el usuario este autenticado lo llevamos a proyectos
+        if(autenticado){
+            props.history.push('/proyectos')
+        }
+        //si mensaje esta true mostramos una alerta con ese mensaje y la categoria que trae ese mensaje.
+        if(mensaje){
+            mostrarAlerta(mensaje.msg, 
+                mensaje.categoria)
+        }
+    // en las dependencia ponemos lo que queremos que active el useEffect, en este caso cuando se agregue algo a mensaje( que cambia dependiendo de la respuesta al crear un usuario) el useEffect se activa. cuando autenticado pase a true.
+    //como tenemos acceso al dom podemos disparar el useEffect cuando cambian las props
+    },[mensaje, autenticado, props.history])
     //12 le damos al usuario los nuevos valores name del formulario usando un useState.
     const [usuario, guardarUsuario] = useState({
         email: '',
@@ -41,8 +56,8 @@ const NuevaCuenta = () => {
             return
         }
 
-        if(password.length < 6) {
-            mostrarAlerta('El password debe ser de al menos 6 caracteres', 'alerta-error')
+        if(password.length < 8) {
+            mostrarAlerta('El password debe ser de al menos 8 caracteres', 'alerta-error')
             return
         }
 
