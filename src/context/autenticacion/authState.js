@@ -32,6 +32,10 @@ const AuthState = props => {
                 type: REGISTRO_EXITOSO,
                 payload : respuesta.data
             })
+
+            // obtenemos el usuario una vez que el registro es exitoso
+            usuarioAutenticado()
+            
         } catch (error) {
             //error.response es la forma de acceder a los errores en axios.
             //después debemos ver que parte del error necesitamos en este caso error.response.data.msg nos trae el mensaje de error que buscamos.
@@ -51,6 +55,22 @@ const AuthState = props => {
         }
     }
 
+    // Retorna el usuario autenticado
+    const usuarioAutenticado = async () => {
+        const token = localStorage.getItem('token')
+        if(token) {
+
+        }
+
+        try {
+            const respuesta = await clienteAxios.get('/api/auth')
+            console.log(respuesta)
+        } catch (error) {
+            dispatch({
+                type: LOGIN_ERROR
+            })
+        }
+    }
     return(
         <authContext.Provider
             value= {{
