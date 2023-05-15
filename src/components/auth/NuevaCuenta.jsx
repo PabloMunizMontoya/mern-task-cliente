@@ -3,11 +3,16 @@
 import alertasContext from '../../context/alertas/alertasContext'
 import React, { useState, useContext } from 'react'
 import {Link} from 'react-router-dom'
+import AuthContext from '../../context/autenticacion/authContext'
 
 const NuevaCuenta = () => {
 
     const alertaContext = useContext(alertasContext)
     const {alerta, mostrarAlerta} = alertaContext
+
+    //extraemos lo que necesitamos del authContext
+    const authContext = useContext(AuthContext)
+    const { registrarUsuario} = authContext
 
     //12 le damos al usuario los nuevos valores name del formulario usando un useState.
     const [usuario, guardarUsuario] = useState({
@@ -45,6 +50,11 @@ const NuevaCuenta = () => {
             mostrarAlerta('El password debe ser igual al password de confirmación', 'alerta-error')
             return
         }
+
+        //una vez que pasamos toda la validación usamos la function registrar usuario, recordar que esta function envía datos al back end usando axios a traves de una petición post http.
+        // a la function le pasamos todos los datos obtenidos en el form y guardados por el useState.
+        //esto va a mandar a llamar a la function en authState, la misma tiene como datos los datos aca ingresados, esos datos se pasan hacia la api, obtiene una respuesta por el console.log(respuesta) y luego pasa con un dispatch a los types correspondientes.
+        registrarUsuario({nombre,email,password})
     }
 
     return ( 
