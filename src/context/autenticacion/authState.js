@@ -3,6 +3,9 @@ import authContext from "./authContext"
 import authReducer from "./authReducer"
 import clienteAxios from "../../config/axios"
 
+//importamos el token para poder usarlo
+import tokenAuth from '../../config/tokenAuth'
+
 import {REGISTRO_ERROR, OBTENER_USUARIO,LOGIN_ERROR,LOGIN_EXITOSO,CERRAR_SESSION, REGISTRO_EXITOSO} from "../../types"
 
 const AuthState = props => {
@@ -26,15 +29,18 @@ const AuthState = props => {
             //recordemos que cliente axios tiene la url a la que se le hace la petición y los datos son lo que le vamos a enviar a la api mediante a la ruta
             const respuesta = await clienteAxios.post('/api/usuarios', datos)
             console.log(respuesta.data)
-
+            
             //hacemos un dispatch al type de registro exitoso, si miramos el objeto que trae respuesta, en respuesta.data tenemos el token, entonces ese dato es lo que necesitamos pasar como payload.
             dispatch({
                 type: REGISTRO_EXITOSO,
                 payload : respuesta.data
             })
-
+            
             // obtenemos el usuario una vez que el registro es exitoso
-            usuarioAutenticado()
+            
+            setTimeout(() => {
+                usuarioAutenticado(); 
+            }, 1000); 
             
         } catch (error) {
             //error.response es la forma de acceder a los errores en axios.
@@ -54,23 +60,38 @@ const AuthState = props => {
             })
         }
     }
-
+    
     // Retorna el usuario autenticado
     const usuarioAutenticado = async () => {
-        const token = localStorage.getItem('token')
+        //leemos el token que tenemos guardado en el local storage y lo traemos
+        const token =  localStorage.getItem('token')
+        console.log(token)
+        //con un condicional si token es true le damos a authToken ese valor para asignar el token a clienteAxios
         if(token) {
-
+            tokenAuth(token)
         }
 
         try {
+            //traemos de la api la info con la petición get
             const respuesta = await clienteAxios.get('/api/auth')
-            console.log(respuesta)
-        } catch (error) {
+            // una vez que tenemos el usuario autenticado le pasamos ese valor por payload.
             dispatch({
+                type: OBTENER_USUARIO,
+                payload:respuesta.data.usuario
+            })
+            
+        } catch (error) {
+            // en esta instancia como no tenemos el token pasa al error y nos muestra el error definido en el middleware auth para cuando no hay un token, para solucionar esto creamos en config un archivos que nos envía el token desde el header para poder usarlo en toda la app. entonces le enviamos a clienteAxios el token.
+            console.log(error.response)
+            // en caso de que no se pueda autenticar, despachamos una acción al type.
+            dispatch({
+                
                 type: LOGIN_ERROR
             })
-        }
+        } 
+        
     }
+    
     return(
         <authContext.Provider
             value= {{
@@ -78,7 +99,8 @@ const AuthState = props => {
                 autenticado: state.autenticado,
                 usuario: state.usuario,
                 mensaje: state.mensaje,
-                registrarUsuario
+                registrarUsuario,
+                
 
             }}
         >{props.children}

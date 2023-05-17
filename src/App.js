@@ -31,7 +31,7 @@ function App() {
               <Router>
                 {/* 2. en routes se va a ver cada una de las paginas */}
                 <Routes>
-
+                  
                   {/* 2.1 definimos nuestras rutas, que hacen referencia a los componentes  */}
                   <Route exact path= '/' element={<Login/>} />
                   <Route exact path= '/nueva-cuenta' element={<NuevaCuenta/>} />

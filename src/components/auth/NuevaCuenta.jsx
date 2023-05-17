@@ -2,7 +2,8 @@
 
 import alertasContext from '../../context/alertas/alertasContext'
 import React, { useState, useContext, useEffect } from 'react'
-import {Link} from 'react-router-dom'
+import {Link,  useNavigate} from 'react-router-dom'
+
 import AuthContext from '../../context/autenticacion/authContext'
 
 const NuevaCuenta = (props) => {
@@ -12,7 +13,9 @@ const NuevaCuenta = (props) => {
 
     //extraemos lo que necesitamos del authContext
     const authContext = useContext(AuthContext)
-    const { mensaje, autenticado, registrarUsuario} = authContext
+    const { mensaje, autenticado, registrarUsuario, usuarioAutenticado} = authContext
+
+    const navigate = useNavigate();
 
     // en caso de que el usuario se halla autenticado o registrado o sea un registro duplicado
     useEffect(()=> {
@@ -20,14 +23,7 @@ const NuevaCuenta = (props) => {
         //aca lo que hacemos es que una vez que el usuario este autenticado lo llevamos a proyectos
         if(autenticado){
 
-            //En React, props.history es un objeto que se proporciona a un componente que está siendo renderizado por un componente de ruta (<Route>). El objeto history contiene información sobre el historial de navegación y se utiliza para navegar por la aplicación.
-
-            //El objeto history tiene varios métodos que se pueden utilizar para navegar por la aplicación, como push, replace, go, goBack y goForward. Estos métodos permiten al usuario navegar hacia adelante y hacia atrás en el historial de navegación, cambiar la URL actual y actualizar el estado del navegador.
-
-            //El objeto history también proporciona información sobre la ubicación actual del usuario, como la ruta actual y los parámetros de la URL. Esto permite a los componentes de la aplicación mostrar el contenido correcto en función de la URL actual.
-
-            //En general, props.history es una herramienta útil para navegar por una aplicación de React y mantener el historial de navegación del usuario.
-            props.history.push('/proyectos')
+        navigate('/proyectos'); 
         }
         //si mensaje esta true mostramos una alerta con ese mensaje y la categoria que trae ese mensaje.
         if(mensaje){
@@ -36,7 +32,7 @@ const NuevaCuenta = (props) => {
         }
     // en las dependencia ponemos lo que queremos que active el useEffect, en este caso cuando se agregue algo a mensaje( que cambia dependiendo de la respuesta al crear un usuario) el useEffect se activa. cuando autenticado pase a true.
     //como tenemos acceso al dom podemos disparar el useEffect cuando cambian las props
-    },[mensaje, autenticado, props.history])
+    },[mensaje, autenticado, navigate])
 
     
     //12 le damos al usuario los nuevos valores name del formulario usando un useState.
@@ -80,6 +76,8 @@ const NuevaCuenta = (props) => {
         // a la function le pasamos todos los datos obtenidos en el form y guardados por el useState.
         //esto va a mandar a llamar a la function en authState, la misma tiene como datos los datos aca ingresados, esos datos se pasan hacia la api, obtiene una respuesta por el console.log(respuesta) y luego pasa con un dispatch a los types correspondientes.
         registrarUsuario({nombre,email,password})
+        
+
     }
 
     return ( 
