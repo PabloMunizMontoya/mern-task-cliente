@@ -65,7 +65,6 @@ const AuthState = props => {
     const usuarioAutenticado = async () => {
         //leemos el token que tenemos guardado en el local storage y lo traemos
         const token =  localStorage.getItem('token')
-        console.log(token)
         //con un condicional si token es true le damos a authToken ese valor para asignar el token a clienteAxios
         if(token) {
             tokenAuth(token)
@@ -93,9 +92,30 @@ const AuthState = props => {
     }
     // función para iniciar session, le vamos a pasar a la api los datos 
     const iniciarSesion = async datos => {
+        const token =  localStorage.getItem('token')
+        console.log(token)
+        //con un condicional si token es true le damos a authToken ese valor para asignar el token a clienteAxios
+        if(token) {
+            tokenAuth(token)
+        }
         try {
             const respuesta = await clienteAxios.post('/api/auth', datos)
-            console.log(respuesta)
+            
+            console.log(respuesta.data)
+            //en caso de que los datos sean correcto al iniciar Sesion largamos un dispatch
+            dispatch({
+                type: LOGIN_EXITOSO,
+                //este payload viene desde el auth controller, y es el token que enviamos cuando el usuario se conecta de forma correcta. respuesta es la variable que definimos unas lineas arriba y en data.token esta lo que le enviamos desde el controlador que es el token.
+                payload: respuesta.data
+            })
+
+            //obtenemos el usuario autenticado una vez que el login es exitoso 
+            
+            setTimeout(() => {
+                usuarioAutenticado(); 
+            }, 1000); 
+            
+
         } catch (error) {
             console.log(error.response.data.msg)
             const alerta = {
