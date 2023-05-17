@@ -1,9 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import AuthContext from '../../context/autenticacion/authContext'
+import alertasContext from '../../context/alertas/alertasContext'
 
 //9 importamos esta propiedad desde react router dom para hacer funcionales los enlaces.
 import {Link} from 'react-router-dom'
 
 const Login = () => {
+
+    const alertaContext = useContext(alertasContext)
+    const {alerta, mostrarAlerta} = alertaContext
+
+    //extraemos lo que necesitamos del authContext
+    const authContext = useContext(AuthContext)
+    const { mensaje, autenticado, registrarUsuario, iniciarSesion} = authContext
 
     // 7 definimos el state para tomar los datos del usuario, el estate tiene como datos iniciales un objeto con propiedades y su valor vació.
     const [usuario, guardarUsuario] = useState({
@@ -26,10 +35,19 @@ const Login = () => {
     //8.1 function que se dispara al usuario apretar el submit, se pone un preventDefault para que la pagina no se recargue al hacer click en el boton. 
     const onSubmit = e => {
         e.preventDefault()
+
+        // validamos que no halla campos vacíos
+        if(email.trim() === '' || password.trim() === '' ){
+            //aca llamamos a la function y le damos los valores que vienen desde el payload msg y categoria.
+            mostrarAlerta('Todos los campos son obligatorios', 'alerta-error')
+        }
+        // al pasar la validaciones, mandamos a llamar a iniciarSesion que viene desde el context de auth, si recordamos esta function tiene como props los datos, aca se los pasaremos, estos datos pasaran a la api 
+        iniciarSesion({email, password})
     }
 
     return ( 
         <div className='form-usuario'>
+            {alerta ? (<div className={`alerta ${alerta.categoria}`}>{alerta.msg}</div>) : null }
             <div className='contenedor-form sobra-dark'>
                 <h1>Iniciar Sesión</h1>
 

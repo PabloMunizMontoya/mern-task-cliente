@@ -17,6 +17,7 @@ const AlertasState = props => {
     const mostrarAlerta = (msg, categoria) => {
         dispatch({
             type : MOSTRAR_ALERTA,
+            //le pasamos estos datos por payload, el mensaje y la clase, el mensaje sera asignado cuando se llame a la function en cada componente al igual que la categoria( clase )
             payload: {
                 msg,
                 categoria

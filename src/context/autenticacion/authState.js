@@ -91,7 +91,26 @@ const AuthState = props => {
         } 
         
     }
-    
+    // función para iniciar session, le vamos a pasar a la api los datos 
+    const iniciarSesion = async datos => {
+        try {
+            const respuesta = await clienteAxios.post('/api/auth', datos)
+            console.log(respuesta)
+        } catch (error) {
+            console.log(error.response.data.msg)
+            const alerta = {
+                //los mensajes vienen desde el controlador authController
+                msg: error.response.data.msg,
+                categoria: 'alerta-error'
+            }
+            //si hay un error se hace un dispatch al type de registro error
+            // el error despacha un payload que es alerta esta variable le dimos valor arriba.
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: alerta
+            })
+        }
+    }
     return(
         <authContext.Provider
             value= {{
@@ -100,6 +119,7 @@ const AuthState = props => {
                 usuario: state.usuario,
                 mensaje: state.mensaje,
                 registrarUsuario,
+                iniciarSesion
                 
 
             }}

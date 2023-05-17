@@ -9,6 +9,7 @@ export default (state, action) => {
 
         case MOSTRAR_ALERTA:
             return{
+                //el payload viene desde el state
                 alerta: action.payload
             }
 

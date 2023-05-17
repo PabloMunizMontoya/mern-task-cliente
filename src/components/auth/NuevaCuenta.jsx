@@ -13,7 +13,7 @@ const NuevaCuenta = (props) => {
 
     //extraemos lo que necesitamos del authContext
     const authContext = useContext(AuthContext)
-    const { mensaje, autenticado, registrarUsuario, usuarioAutenticado} = authContext
+    const { mensaje, autenticado, registrarUsuario} = authContext
 
     const navigate = useNavigate();
 
