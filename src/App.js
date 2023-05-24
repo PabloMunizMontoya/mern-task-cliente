@@ -18,6 +18,7 @@ import AuthState from './context/autenticacion/authState'
 
 import tokenAuth from './config/tokenAuth'
 
+
 // revisamos si tenemos un token guardado en el local storage, lo vamos a usar para que al recargar la pagina los datos del usuario autenticado no se me vallan.
 const token = localStorage.getItem('token')
 
@@ -28,7 +29,7 @@ if(token) {
 
 function App() {
 
-  console.log(process.env.REACT_APP_BACKEND_URL)
+  
   return (
 
     //37.1 englobamos todo el proyecto con los estados para asi poder hace uso de ellos en cada componente.
@@ -45,6 +46,8 @@ function App() {
                   {/* 2.1 definimos nuestras rutas, que hacen referencia a los componentes  */}
                   <Route exact path= '/' element={<Login/>} />
                   <Route exact path= '/nueva-cuenta' element={<NuevaCuenta/>} />
+
+                  {/* como podemos ver este higher component se llama en app.js en donde al componente que queremos proteger le cambiamos el route por la function rutaPrivada, esta function entonces toma un componente en este caso proyectos y allí hace la comparación ternaria. */}
                   <Route exact path= '/Proyectos' element={<Proyectos/>} />
                 </Routes>
               </Router>

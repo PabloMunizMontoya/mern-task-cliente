@@ -33,22 +33,24 @@ export default (state, action) => {
             }
 
         case REGISTRO_ERROR:
+            localStorage.removeItem('token')  
             return{
                 ...state,
                 token: null,
                 mensaje: action.payload
+                
             }
         
         case LOGIN_ERROR:
             // si hay un error al autenticar removemos el token del local
-            /* localStorage.removeItem('token')  */
+            localStorage.removeItem('token')   
             return{
                 ...state,
                 token: null,
                 mensaje: action.payload
             }
             case CERRAR_SESSION:
-                
+                localStorage.removeItem('token')  
                 return{
                     ...state,
                     token: null,
