@@ -10,7 +10,7 @@ const tokenAuth = token => {
   if (token) {
     // Si el token está presente, se establece en el encabezado de autorización
     clienteAxios.defaults.headers.common['Authorization'] = token;
-    console.log(token)
+    /* console.log(token) */
   } else {
     // Si no hay token, se elimina el encabezado de autorización
     delete clienteAxios.defaults.headers.common['Authorization'];

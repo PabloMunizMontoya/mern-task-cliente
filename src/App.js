@@ -16,6 +16,16 @@ import AlertasState from './context/alertas/alertasState'
 
 import AuthState from './context/autenticacion/authState'
 
+import tokenAuth from './config/tokenAuth'
+
+// revisamos si tenemos un token guardado en el local storage, lo vamos a usar para que al recargar la pagina los datos del usuario autenticado no se me vallan.
+const token = localStorage.getItem('token')
+
+// si token existe llamamos a la function tokenAuth y le damos como argumento token, tokenAuth lleva el token hacia el encabezado, entonces lo traemos del local storage y lo llevamos al encabezado.
+if(token) {
+  tokenAuth(token)
+}
+
 function App() {
 
   console.log(process.env.REACT_APP_BACKEND_URL)

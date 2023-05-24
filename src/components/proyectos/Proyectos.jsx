@@ -5,8 +5,25 @@ import Sidebar from '../layout/Sidebar';
 import Barra from '../layout/Barra';
 import FormTarea from '../tareas/FormTarea';
 import ListadoTareas from '../tareas/ListadoTareas';
+import AuthContext from '../../context/autenticacion/authContext';
+import { useEffect, useContext } from 'react';
+
+
+
 
 const Proyectos = () => {
+
+    //extraemos los datos de autenticacion
+    //extraemos la function que revisa si hay un token
+    //todos estos pasos son para guardar el usuario autenticado en el local storage
+    const authContext = useContext(AuthContext)
+    const {usuarioAutenticado} = authContext
+
+    // usamos usuario autenticado que es la función que llama al type OBTENER_USUARIO que se encarga de darle a usuario el valor del usuario autenticado, entonces con un useEffect que se dispara al cargar proyectos llamamos a dicha function.
+    useEffect(() => {
+        usuarioAutenticado()
+    },[])
+
     return ( 
         <div className='contenedor-app'>
             
