@@ -1,9 +1,6 @@
 //35. aca definiremos el State y también las diferentes funciones con dispatch hacia los types.
 import React, {useReducer} from 'react'
 
-//60.2 importamos uuid
-import { v4 as uuidv4 } from 'uuid';
-
 //35.1 importamos el context que creamos 
 import proyectoContext from './proyectoContext'
 
@@ -12,6 +9,8 @@ import proyectoReducer from './proyectoReducer'
 
 //40.1 importamos los types
 import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS,AGREGAR_PROYECTO, VALIDAR_FORMULARIO, PROYECTO_ACTUAL, ELIMINAR_PROYECTO} from '../../types'
+
+import clienteAxios from '../../config/axios'
 
 
 //36 este sera el state inicial de toda la admin del proyecto, como la eliminación o creación de un proyecto
@@ -58,16 +57,15 @@ const ProyectoState = props => {
         })
     }
     
-    //60.1 Agregamos nuevo proyecto, si recordamos en el componente NuevoProyecto el proyecto es un objeto, entonces a ese objeto le podemos agregar un id, esto lo hacemos con uuid (npm i -D uuid), esto entonces es una function que puede agregar id a el argumento que se le pasa que en este caso es proyecto.  
-    const agregarProyecto = proyecto => {
+    //agregar proyecto
+    const agregarProyecto = async proyecto => {
 
-        proyecto.id = uuidv4()
-
-        //60.6 insertamos el proyecto en el state con un dispatch, el type hace referencia a que va a modificar el reducer y el payload es la info que ya trae desde esta instancia.
-        dispatch ({
-            type: AGREGAR_PROYECTO,
-            payload: proyecto
-        })
+        try {
+            const resultado = await clienteAxios.post('/api/proyectos', proyecto)
+            console.log(resultado)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     //70.1 validar el formulario por errores, creamos una function que va a manejar los errores, pasando un error de true a false
