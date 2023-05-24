@@ -27,7 +27,9 @@ export default (state, action) => {
         case OBTENER_USUARIO:
             return{
                 ...state,
+                autenticado: true,
                 usuario: action.payload
+                
             }
 
         case REGISTRO_ERROR:
@@ -45,6 +47,15 @@ export default (state, action) => {
                 token: null,
                 mensaje: action.payload
             }
+            case CERRAR_SESSION:
+                
+                return{
+                    ...state,
+                    token: null,
+                    usuario: null,
+                    autenticado: null,
+                    mensaje: action.payload
+                }
 
         default: 
             return state

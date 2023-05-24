@@ -6,7 +6,7 @@ const Barra = () => {
 
     // vamos a poner en el layout el nombre del usuario autenticado. Para eso usamos la function que le da a usuario el valor del usuario autenticado, y el estado usuario.
     const authContext = useContext(AuthContext)
-    const {usuario,usuarioAutenticado} = authContext
+    const {usuario,usuarioAutenticado, cerrarSesion} = authContext
 
     // usamos usuario autenticado que es la función que llama al type OBTENER_USUARIO que se encarga de darle a usuario el valor del usuario autenticado, entonces con un useEffect que se dispara al cargar proyectos llamamos a dicha function.
     useEffect(() => {
@@ -18,7 +18,10 @@ const Barra = () => {
             
 
             <nav className='nav-principal'>
-                <a href="#!">Cerrar Sesión</a>
+                <button
+                    className='btn btn-blank cerrar-sesion'
+                    onClick= {() => cerrarSesion()}
+                >Cerrar sesion</button>
             </nav>
         </header>
      );
