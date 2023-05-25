@@ -2,7 +2,7 @@
 
 
 //40.5 importamos los types 
-import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS, AGREGAR_PROYECTO, VALIDAR_FORMULARIO, PROYECTO_ACTUAL, ELIMINAR_PROYECTO} from '../../types'
+import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS, AGREGAR_PROYECTO, PROYECTO_ERROR, VALIDAR_FORMULARIO, PROYECTO_ACTUAL, ELIMINAR_PROYECTO} from '../../types'
 
 //34.1 la function reducer toma dos argumentos el estado actual y la function que actualiza ese estado.
 export default (state, action ) => {
@@ -55,6 +55,11 @@ export default (state, action ) => {
                 ...state,
                 proyectos: state.proyectos.filter(proyecto => proyecto._id !== action.payload),
                 proyecto: false
+            }
+        case PROYECTO_ERROR:
+            return{
+                ...state,
+                mensaje: action.payload
             }
             default:
                 return state

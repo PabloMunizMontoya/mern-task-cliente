@@ -9,6 +9,8 @@ export const OBTENER_PROYECTOS = 'OBTENER_PROYECTOS'
 //60. agregamos el type para obtener proyectos
 export const AGREGAR_PROYECTO = 'AGREGAR_PROYECTO'
 
+//type para alertas de proyecto error
+export const PROYECTO_ERROR = 'PROYECTO_ERROR'
 //70. definimos un nuevo type para validar el formulario
 export const VALIDAR_FORMULARIO = 'VALIDAR_FORMULARIO'
 
@@ -51,3 +53,4 @@ export const OBTENER_USUARIO = 'OBTENER_USUARIO'
 export const LOGIN_EXITOSO = 'LOGIN_EXITOSO'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
 export const CERRAR_SESSION = 'CERRAR_SESSION'
+

@@ -8,7 +8,7 @@ import proyectoContext from './proyectoContext'
 import proyectoReducer from './proyectoReducer'
 
 //40.1 importamos los types
-import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS,AGREGAR_PROYECTO, VALIDAR_FORMULARIO, PROYECTO_ACTUAL, ELIMINAR_PROYECTO} from '../../types'
+import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS,AGREGAR_PROYECTO, PROYECTO_ERROR, VALIDAR_FORMULARIO, PROYECTO_ACTUAL, ELIMINAR_PROYECTO} from '../../types'
 
 import clienteAxios from '../../config/axios'
 
@@ -31,7 +31,8 @@ const ProyectoState = props => {
         proyectos : [],
         formulario : false,
         errorFormulario: false,
-        proyecto: null
+        proyecto: null,
+        mensaje: null
         
     }
     
@@ -117,7 +118,14 @@ const ProyectoState = props => {
                 payload: proyectoId
             })
         } catch (error) {
-            
+            const alerta = {
+                msg: 'Hubo un error',
+                categoria: 'alerta-error'
+            }
+            dispatch ({
+                type: PROYECTO_ERROR,
+                payload : alerta
+            })
         }
     }
 
@@ -137,6 +145,8 @@ const ProyectoState = props => {
 
                 //80.2 pasamos el estado proyecto a el provider
                 proyecto : state.proyecto,
+
+                mensaje: state.mensaje,
 
                 /* 40.4 para poder ejecutar la function la debemos poner el el provider */
                 mostrarFormulario,
