@@ -19,6 +19,7 @@ export default (state, action ) => {
         
         //55. generamos la acción para OBTENER_PROYECTOS, entonces el valor de proyectos va a ser el payload, que son todos los proyectos.
         case OBTENER_PROYECTOS:
+            console.log(action.payload)
             return{
                 ...state,
                 proyectos: action.payload

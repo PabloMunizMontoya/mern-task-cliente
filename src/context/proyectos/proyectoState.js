@@ -17,11 +17,11 @@ import clienteAxios from '../../config/axios'
 const ProyectoState = props => {
     
     //50. ponemos el listado de proyectos dentro del state para poderlos usar dentro de todos los componentes en donde deseamos 
-    const proyectos = [
+    /* const proyectos = [
         {id : 1, nombre: 'Tienda Virtual'},
         {id : 2, nombre: 'Intranet'},
         {id : 3, nombre: 'Diseño de sitio web'}
-    ]
+    ] */
     
     //36.1 este sera entonces el state inicial de los proyectos, formulario comienza en false y una vez que el usuario le de click al boton nuevo proyecto el valor formulario pasara a true y se mostrara en pantalla el formulario para poner la data.
     //52. nuestros proyectos inician como un array vació, por ende cuando mandemos a llamar el dispatch este array vació cambiara de estado en function de lo indicado por el reducer.
@@ -49,20 +49,38 @@ const ProyectoState = props => {
     
     //54. obtener los proyectos es similar a la function de arriba hacemos un dispatch para que el reductor sepa a que tipo type hacer la action, La propiedad payload se utiliza para enviar datos adicionales junto con la acción. En este caso, proyectos es el valor que se está enviando como payload. Esto significa que la acción OBTENER_PROYECTOS puede utilizar estos datos para actualizar el estado del Context en consecuencia.
 
-    const obtenerProyectos = () => {
+    /* const obtenerProyectos = () => {
         dispatch({
             type: OBTENER_PROYECTOS,
             payload: proyectos
             
         })
+    } */
+
+    //obtener proyectos pero desde el backend
+    const obtenerProyectos = async () => {
+        try {
+            const resultado = await clienteAxios.get('/api/proyectos' )
+            dispatch({
+                type: OBTENER_PROYECTOS,
+                payload: resultado.data.proyectos
+                
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
-    
-    //agregar proyecto
+    //agregar proyecto a la db, como trabajamos con axios usamos un proceso asyncrono usamos un try catch para manejar los errores y aciertos, en el try le damos una petición http post con la ruta definida en clienteAxios yen el backend para la librería de proyectos luego enviamos un dispatch con su type y por payload enviamos el resultado.
     const agregarProyecto = async proyecto => {
 
         try {
             const resultado = await clienteAxios.post('/api/proyectos', proyecto)
             console.log(resultado)
+
+            dispatch({
+                type: AGREGAR_PROYECTO,
+                payload: resultado.data
+            })
         } catch (error) {
             console.log(error)
         }

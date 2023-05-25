@@ -29,7 +29,7 @@ const Proyectos = () => {
     
     if (!usuario){
         navigate('/');
-        return null;
+    return null;
     }  
 
     return ( 
