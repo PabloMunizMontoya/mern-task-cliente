@@ -47,13 +47,13 @@ export default (state, action ) => {
         case PROYECTO_ACTUAL:
             return{
                 ...state,
-                proyecto: state.proyectos.filter(proyecto => proyecto.id === action.payload.id)
+                proyecto: state.proyectos.filter(proyecto => proyecto._id === action.payload._id)
             }
         //101.3 creamos la acción para el type de eliminar proyecto, el por que generar una copia del state ya esta bien desarrollado anteriormente, ahora revisemos proyectos: como lo que queremos hacer es eliminar un proyecto de la lista de proyectos tomamos este objeto proyectos y le hacemos un filter identificando el id de todos los proyectos y el que no es igual al proyecto actual pasado por payload, arriba en el 80.5 usamos un filter y una equivalencia para agregar el proyecto actual basado en su id, para restar aca de la lista de proyectos hacemos lo contrario con !==
         case ELIMINAR_PROYECTO:
             return{
                 ...state,
-                proyectos: state.proyectos.filter(proyecto => proyecto.id !== action.payload.id),
+                proyectos: state.proyectos.filter(proyecto => proyecto._id !== action.payload),
                 proyecto: false
             }
             default:

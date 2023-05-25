@@ -102,12 +102,24 @@ const ProyectoState = props => {
     }
 
     //101.1 creamos la function para eliminar el proyecto, en realidad creamos el dispatch que hace correr la function que elimina el proyecto, esta function tiene como argumento el proyecto actual y le pasamos por payload el valor de ese proyecto para que en el reducer trabajemos con el.
-    const eliminarProyecto = proyecto => {
+    /* const eliminarProyecto = proyecto => {
         dispatch ({
             type: ELIMINAR_PROYECTO,
             payload: proyecto
         })
-    } 
+    }  */
+
+    const eliminarProyecto = async proyectoId => {
+        try {
+            await clienteAxios.delete(`/api/proyectos/${proyectoId}`)
+            dispatch ({
+                type: ELIMINAR_PROYECTO,
+                payload: proyectoId
+            })
+        } catch (error) {
+            
+        }
+    }
 
     //36.4 creamos el provider para que los estados y las functions se puedan usar en todo el proyecto
     return(
