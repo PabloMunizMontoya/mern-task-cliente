@@ -71,7 +71,7 @@ const ProyectoState = props => {
             console.log(error)
         }
     }
-    //agregar proyecto a la db, como trabajamos con axios usamos un proceso asyncrono usamos un try catch para manejar los errores y aciertos, en el try le damos una petición http post con la ruta definida en clienteAxios yen el backend para la librería de proyectos luego enviamos un dispatch con su type y por payload enviamos el resultado.
+    //agregar proyecto a la db, como trabajamos con axios usamos un proceso asíncrono usamos un try catch para manejar los errores y aciertos, en el try le damos una petición http post con la ruta definida en clienteAxios yen el backend para la librería de proyectos luego enviamos un dispatch con su type y por payload enviamos el resultado.
     const agregarProyecto = async proyecto => {
 
         try {

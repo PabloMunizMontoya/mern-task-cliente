@@ -3,16 +3,18 @@
 import React, {useReducer} from 'react'
 import TareaContext from './tareaContext'
 import TareaReducer from './tareaReducer'
-import { v4 as uuidv4 } from 'uuid';
+
 
 //113. importamos los types
 import {TAREAS_PROYECTO, AGREGAR_TAREA, VALIDAR_NUEVA_TAREA, ELIMINAR_TAREA, ESTADO_TAREA, TAREA_ACTUAL, ACTUALIZAR_TAREA} from '../../types'
 
+import clienteAxios from '../../config/axios'
+
 //109.1 este es el estado inicial o todos los estados iniciales con los que vamos a trabajar o despachar.
 const TareaState = props => {
     const initialState = {
-        tareasProyecto: null,
-        tareas: [
+        tareasProyecto: [],
+       /*  tareas: [
         {id:1, nombre: 'Elegir Plataforma', estado: true, proyectoId: 1},
         {id:2, nombre: 'Elegir Colores', estado: false, proyectoId: 2},
         {id:3, nombre: 'Elegir Plataforma de Pago', estado: false},
@@ -21,7 +23,7 @@ const TareaState = props => {
         {id:6, nombre: 'Elegir Colores', estado: false, proyectoId: 3},
         {id:7, nombre: 'Elegir Plataforma de Pago', estado: false},
         {id:8, nombre: 'Elegir Hosting', estado: true, proyectoId: 1}
-        ],
+        ], */
         //121. agregamos un state inicial para el error de la tarea nueva, lo usaremos para validar el formulario
         errorTarea: false,
 
@@ -43,12 +45,16 @@ const TareaState = props => {
 
 
     //117 creamos la function que agrega tareas al proyecto seleccionado
-    const agregarTarea = tarea => {
-        tarea.id = uuidv4()
-        dispatch({
-            type: AGREGAR_TAREA,
-            payload: tarea
-        })
+    const agregarTarea = async tarea => {
+        try {
+            const resultado = await clienteAxios.post('/api/tareas', tarea)
+            dispatch({
+                type: AGREGAR_TAREA,
+                payload: tarea
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     //123. valida y muestra un error en caso de que sea necesario
@@ -98,7 +104,7 @@ const TareaState = props => {
         <TareaContext.Provider
             // 111. pasamos las tareas al provider para poder usarlas en todo el proyecto */}
             value= {{
-                tareas:state.tareas,
+                
 
                 //114.1 pasamos la function obtener tareas al provider y de esta forma poder usarla en todo el proyecto
                 obtenerTareas,
