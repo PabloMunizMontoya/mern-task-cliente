@@ -11,7 +11,7 @@ export default (state,action) => {
         case TAREAS_PROYECTO:
             return{
                 ...state,
-                tareasProyecto: state.tareasProyecto.filter(tarea => tarea.proyectoId === action.payload )
+                tareasProyecto: action.payload
             }
 
         //118. creamos la acción paa agregar tareas a el proyecto seleccionado: las tareas nuevas se agregan en el estado inicial tareas por que después se filtra por el id y se renderiza cada tarea para cada proyecto, pero este proceso se hace desde el estado tarea, por ende todas las tareas nuevas sin importar desde que proyecto se crean, se suman al estado tareas que tiene todas las tareas en general. entonces se hace una copia del estado, luego se hace en un array una copia de ese estado y se le suma la tarea que viene como payload para este type. 

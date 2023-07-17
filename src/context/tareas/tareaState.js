@@ -35,11 +35,18 @@ const TareaState = props => {
     const [state, dispatch] = useReducer(TareaReducer, initialState)
 
     //114. creamos una function para obtener las tareas de cada id correspondiente a su proyecto. esta function enviara un dispatch hacia el reducer que hace referencia al type y ademas lleva como payload las tareas para poder operar con ellas en el reducer. el valor del payload se obtiene al correr esta function en el componente proyecto 115 en donde se le pasa como argumento el id del proyecto (proyecto.id)
-    const obtenerTareas = proyectoId => {
-        dispatch({
-            type: TAREAS_PROYECTO,
-            payload: proyectoId 
-        })
+    const obtenerTareas = async proyecto => {
+        console.log(proyecto)
+        try {
+            const resultado = await clienteAxios.get('/api/tareas', {params: {proyecto}})
+            console.log(resultado)
+            dispatch({
+                type: TAREAS_PROYECTO,
+                payload: resultado.data.tareas
+            })
+        } catch (error) {
+            console.log(error)
+        }
         
     }
 
