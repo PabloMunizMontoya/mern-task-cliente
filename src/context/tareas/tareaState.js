@@ -73,12 +73,18 @@ const TareaState = props => {
     }
 
     //126. creamos la function que va a eliminar la tarea por su id 
-    const eliminarTarea = id => {
-        dispatch({
-            type: ELIMINAR_TAREA,
-            payload: id
-        })
-        
+    const eliminarTarea = async (id, proyecto) => {
+        console.log(proyecto)
+        try {
+            await clienteAxios.delete(`/api/tareas/${id}`, {params: { proyecto}})
+            dispatch({
+                type: ELIMINAR_TAREA,
+                payload: id
+            })
+            
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     //129 creamos la function para cambiar el estado de la tarea, este payload tarea viene del componente tarea, esta tarea es la tarea que corresponde al proyecto. 

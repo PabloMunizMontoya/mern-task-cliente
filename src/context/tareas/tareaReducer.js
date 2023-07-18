@@ -34,7 +34,7 @@ export default (state,action) => {
         case ELIMINAR_TAREA:
             return{
                 ...state,
-                tareasProyecto: state.tareasProyecto.filter(tarea => tarea.id !== action.payload )
+                tareasProyecto: state.tareasProyecto.filter(tarea => tarea._id !== action.payload )
             }
             
         //131 creamos la acción para el estado de la tarea, como payload traemos la tarea que corresponde al id del proyecto, cada tarea tiene ademas un id propio entonces hacemos un map de las tareas del proyecto iterando cada tarea si la tarea.id === al aid del payload renderizamos el payload si no renderizamos la tarea que ya esta. esto es por que el estado ya esta cambiando en el componente tarea lo que aca queremos hacer es renderizar las tareas con su nuevo estado.
