@@ -10,7 +10,7 @@ const Tarea = ({tarea}) => {
     const tareasContext = useContext(TareaContext)
 
     //128.1 extraemos lo que deseamos usar del context en el componente
-    const {eliminarTarea, obtenerTareas, cambiarEstadoTarea, guardarTareaActual} = tareasContext
+    const {eliminarTarea, obtenerTareas, actualizarTarea ,guardarTareaActual} = tareasContext
 
     //130 le decimos que context usar 
     const proyectosContext = useContext(proyectoContext)
@@ -31,7 +31,7 @@ const Tarea = ({tarea}) => {
         } else {
             tarea.estado = true
         }
-        cambiarEstadoTarea(tarea)
+        actualizarTarea(tarea)
     }
 
     //132.3 agrega una tarea actual cuando el usuario desea editarla 

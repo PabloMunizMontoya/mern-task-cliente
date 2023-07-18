@@ -88,14 +88,21 @@ const TareaState = props => {
     }
 
     //129 creamos la function para cambiar el estado de la tarea, este payload tarea viene del componente tarea, esta tarea es la tarea que corresponde al proyecto. 
-    const cambiarEstadoTarea = tarea => {
-        dispatch({
-            type: ESTADO_TAREA,
-            payload: tarea
-        })
+   // 137 edita o modifica una tarea
+    const actualizarTarea = async tarea => {
         
-    }
-
+        try {
+            const resultado = await clienteAxios.put(`/api/tareas/${tarea._id}`, tarea)
+            console.log(resultado)
+            dispatch({
+                type: ACTUALIZAR_TAREA,
+                payload: resultado.data.tarea
+                
+            })
+        } catch (error) {
+            console.log(error)
+        }
+}
     //132 extraer una tarea para editarla
     const guardarTareaActual  = tarea => {
         dispatch({
@@ -104,13 +111,7 @@ const TareaState = props => {
         })
     }
 
-    // 137 edita o modifica una tarea
-    const actualizarTarea = tarea => {
-        dispatch({
-            type: ACTUALIZAR_TAREA,
-            payload: tarea
-        })
-    }
+
 
     //109.3 retornamos nuestro context con un provider para poder usar todos los valores en nuestro proyecto
     return (
@@ -136,9 +137,6 @@ const TareaState = props => {
 
                 //126.1
                 eliminarTarea,
-
-                // 129.1 
-                cambiarEstadoTarea,
 
                 //132.1
                 guardarTareaActual,
