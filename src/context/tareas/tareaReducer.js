@@ -11,14 +11,14 @@ export default (state,action) => {
         case TAREAS_PROYECTO:
             return{
                 ...state,
-                tareasProyecto: state.tareas.filter(tarea => tarea.proyectoId === action.payload )
+                tareasProyecto: action.payload
             }
 
         //118. creamos la acción paa agregar tareas a el proyecto seleccionado: las tareas nuevas se agregan en el estado inicial tareas por que después se filtra por el id y se renderiza cada tarea para cada proyecto, pero este proceso se hace desde el estado tarea, por ende todas las tareas nuevas sin importar desde que proyecto se crean, se suman al estado tareas que tiene todas las tareas en general. entonces se hace una copia del estado, luego se hace en un array una copia de ese estado y se le suma la tarea que viene como payload para este type. 
         case AGREGAR_TAREA:
             return{
                 ...state,
-                tareas: [ action.payload,...state.tareas],
+                tareasProyecto: [ action.payload,...state.tareasProyecto],
                 //124.2 si el su usuario comete un error y en el formulario de tarea no pone nada y le da click al submit, error tarea quedaría en true y se mostraría la alerta correspondiente, ahora si el ususario pone un nombre a la tarea y la tarea se agrega deseamos sacar la alerta por esta razón ponemos aca otra vez errorTarea en su estado inicial
                 errorTarea:false
             }
@@ -34,15 +34,16 @@ export default (state,action) => {
         case ELIMINAR_TAREA:
             return{
                 ...state,
-                tareas: state.tareas.filter(tarea => tarea.id !== action.payload )
+                tareasProyecto: state.tareasProyecto.filter(tarea => tarea._id !== action.payload )
             }
             
         //131 creamos la acción para el estado de la tarea, como payload traemos la tarea que corresponde al id del proyecto, cada tarea tiene ademas un id propio entonces hacemos un map de las tareas del proyecto iterando cada tarea si la tarea.id === al aid del payload renderizamos el payload si no renderizamos la tarea que ya esta. esto es por que el estado ya esta cambiando en el componente tarea lo que aca queremos hacer es renderizar las tareas con su nuevo estado.
         case ACTUALIZAR_TAREA:
-        case ESTADO_TAREA:
+        
             return{
                 ...state,
-                tareas: state.tareas.map(tarea => tarea.id === action.payload.id ? action.payload : tarea )
+                tareasProyecto: state.tareasProyecto.map(tarea => tarea._id === action.payload._id ? action.payload : tarea ),
+                tareaSeleccionada:null 
             }
 
         //133

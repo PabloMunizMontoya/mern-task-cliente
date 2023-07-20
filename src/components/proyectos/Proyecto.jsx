@@ -22,7 +22,7 @@ const Proyecto = ({proyecto}) => {
     //115. agregamos function para agregar el proyecto actual y sus tareas, esta function dispara las function que traemos desde los diferentes context, y como argumento traemos proyecto, recordemos que proyecto ya viene con la info de los proyectos dada por el useEffect en el componente listado de proyectos que dispara la function que carga los proyectos con su respectiva información. por eso el argumento aca es proyecto para poder usar ese objeto tomar su información y usarla en el reducer para hacer lo que deseamos.
     const seleccionarProyecto = proyecto => {
         proyectoActual(proyecto)
-        obtenerTareas(proyecto.id)
+        obtenerTareas(proyecto._id)
     
     }
 

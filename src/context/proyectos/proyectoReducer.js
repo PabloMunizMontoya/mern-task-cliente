@@ -2,7 +2,7 @@
 
 
 //40.5 importamos los types 
-import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS, AGREGAR_PROYECTO, VALIDAR_FORMULARIO, PROYECTO_ACTUAL, ELIMINAR_PROYECTO} from '../../types'
+import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS, AGREGAR_PROYECTO, PROYECTO_ERROR, VALIDAR_FORMULARIO, PROYECTO_ACTUAL, ELIMINAR_PROYECTO} from '../../types'
 
 //34.1 la function reducer toma dos argumentos el estado actual y la function que actualiza ese estado.
 export default (state, action ) => {
@@ -19,6 +19,7 @@ export default (state, action ) => {
         
         //55. generamos la acción para OBTENER_PROYECTOS, entonces el valor de proyectos va a ser el payload, que son todos los proyectos.
         case OBTENER_PROYECTOS:
+            console.log(action.payload)
             return{
                 ...state,
                 proyectos: action.payload
@@ -46,14 +47,19 @@ export default (state, action ) => {
         case PROYECTO_ACTUAL:
             return{
                 ...state,
-                proyecto: state.proyectos.filter(proyecto => proyecto.id === action.payload.id)
+                proyecto: state.proyectos.filter(proyecto => proyecto._id === action.payload._id)
             }
         //101.3 creamos la acción para el type de eliminar proyecto, el por que generar una copia del state ya esta bien desarrollado anteriormente, ahora revisemos proyectos: como lo que queremos hacer es eliminar un proyecto de la lista de proyectos tomamos este objeto proyectos y le hacemos un filter identificando el id de todos los proyectos y el que no es igual al proyecto actual pasado por payload, arriba en el 80.5 usamos un filter y una equivalencia para agregar el proyecto actual basado en su id, para restar aca de la lista de proyectos hacemos lo contrario con !==
         case ELIMINAR_PROYECTO:
             return{
                 ...state,
-                proyectos: state.proyectos.filter(proyecto => proyecto.id !== action.payload.id),
+                proyectos: state.proyectos.filter(proyecto => proyecto._id !== action.payload),
                 proyecto: false
+            }
+        case PROYECTO_ERROR:
+            return{
+                ...state,
+                mensaje: action.payload
             }
             default:
                 return state

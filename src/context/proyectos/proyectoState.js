@@ -1,9 +1,6 @@
 //35. aca definiremos el State y también las diferentes funciones con dispatch hacia los types.
 import React, {useReducer} from 'react'
 
-//60.2 importamos uuid
-import { v4 as uuidv4 } from 'uuid';
-
 //35.1 importamos el context que creamos 
 import proyectoContext from './proyectoContext'
 
@@ -11,18 +8,20 @@ import proyectoContext from './proyectoContext'
 import proyectoReducer from './proyectoReducer'
 
 //40.1 importamos los types
-import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS,AGREGAR_PROYECTO, VALIDAR_FORMULARIO, PROYECTO_ACTUAL, ELIMINAR_PROYECTO} from '../../types'
+import {FORMULARIO_PROYECTO, OBTENER_PROYECTOS,AGREGAR_PROYECTO, PROYECTO_ERROR, VALIDAR_FORMULARIO, PROYECTO_ACTUAL, ELIMINAR_PROYECTO} from '../../types'
+
+import clienteAxios from '../../config/axios'
 
 
 //36 este sera el state inicial de toda la admin del proyecto, como la eliminación o creación de un proyecto
 const ProyectoState = props => {
     
     //50. ponemos el listado de proyectos dentro del state para poderlos usar dentro de todos los componentes en donde deseamos 
-    const proyectos = [
+    /* const proyectos = [
         {id : 1, nombre: 'Tienda Virtual'},
         {id : 2, nombre: 'Intranet'},
         {id : 3, nombre: 'Diseño de sitio web'}
-    ]
+    ] */
     
     //36.1 este sera entonces el state inicial de los proyectos, formulario comienza en false y una vez que el usuario le de click al boton nuevo proyecto el valor formulario pasara a true y se mostrara en pantalla el formulario para poner la data.
     //52. nuestros proyectos inician como un array vació, por ende cuando mandemos a llamar el dispatch este array vació cambiara de estado en function de lo indicado por el reducer.
@@ -32,7 +31,8 @@ const ProyectoState = props => {
         proyectos : [],
         formulario : false,
         errorFormulario: false,
-        proyecto: null
+        proyecto: null,
+        mensaje: null
         
     }
     
@@ -40,9 +40,6 @@ const ProyectoState = props => {
     //En resumen, este código crea un estado y una función para actualizar ese estado utilizando el hook useReducer. La función reducer proyectoReducer se utiliza para actualizar el estado basado en las acciones enviadas a través de la función dispatch. El estado inicial se establece en initialState.
     //el dispatch ejecuta los diferentes types
     const [state, dispatch] = useReducer(proyectoReducer, initialState)
-
-    //36.3 Serie de funciones para el crud
-
 
     //40.2 definimos la function que va a mostrar el formulario, aca deberíamos usar un payload si es que quisiéramos que el formulario tuviese info pero en este caso lo que queremos es que la function valla a types y a traves de esa referencia le indique al reducer que hacer con el estado del formulario que esta inicialmente como false. entonces despachamos type: FORMULARIO_PROYECTO y en el reductor le decimos que cambio hacer a este type que hace referencia al formulario. entonces el type que va a evaluar el switch (action.type) dentro del reductor es el que se le indica con el dispatch.
     const mostrarFormulario = () => {
@@ -53,24 +50,41 @@ const ProyectoState = props => {
     
     //54. obtener los proyectos es similar a la function de arriba hacemos un dispatch para que el reductor sepa a que tipo type hacer la action, La propiedad payload se utiliza para enviar datos adicionales junto con la acción. En este caso, proyectos es el valor que se está enviando como payload. Esto significa que la acción OBTENER_PROYECTOS puede utilizar estos datos para actualizar el estado del Context en consecuencia.
 
-    const obtenerProyectos = () => {
+    /* const obtenerProyectos = () => {
         dispatch({
             type: OBTENER_PROYECTOS,
             payload: proyectos
             
         })
+    } */
+
+    //obtener proyectos pero desde el backend
+    const obtenerProyectos = async () => {
+        try {
+            const resultado = await clienteAxios.get('/api/proyectos' )
+            dispatch({
+                type: OBTENER_PROYECTOS,
+                payload: resultado.data.proyectos
+                
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
-    
-    //60.1 Agregamos nuevo proyecto, si recordamos en el componente NuevoProyecto el proyecto es un objeto, entonces a ese objeto le podemos agregar un id, esto lo hacemos con uuid (npm i -D uuid), esto entonces es una function que puede agregar id a el argumento que se le pasa que en este caso es proyecto.  
-    const agregarProyecto = proyecto => {
+    //agregar proyecto a la db, como trabajamos con axios usamos un proceso asíncrono usamos un try catch para manejar los errores y aciertos, en el try le damos una petición http post con la ruta definida en clienteAxios yen el backend para la librería de proyectos luego enviamos un dispatch con su type y por payload enviamos el resultado.
+    const agregarProyecto = async proyecto => {
 
-        proyecto.id = uuidv4()
+        try {
+            const resultado = await clienteAxios.post('/api/proyectos', proyecto)
+            console.log(resultado)
 
-        //60.6 insertamos el proyecto en el state con un dispatch, el type hace referencia a que va a modificar el reducer y el payload es la info que ya trae desde esta instancia.
-        dispatch ({
-            type: AGREGAR_PROYECTO,
-            payload: proyecto
-        })
+            dispatch({
+                type: AGREGAR_PROYECTO,
+                payload: resultado.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     //70.1 validar el formulario por errores, creamos una function que va a manejar los errores, pasando un error de true a false
@@ -89,12 +103,31 @@ const ProyectoState = props => {
     }
 
     //101.1 creamos la function para eliminar el proyecto, en realidad creamos el dispatch que hace correr la function que elimina el proyecto, esta function tiene como argumento el proyecto actual y le pasamos por payload el valor de ese proyecto para que en el reducer trabajemos con el.
-    const eliminarProyecto = proyecto => {
+    /* const eliminarProyecto = proyecto => {
         dispatch ({
             type: ELIMINAR_PROYECTO,
             payload: proyecto
         })
-    } 
+    }  */
+
+    const eliminarProyecto = async proyectoId => {
+        try {
+            await clienteAxios.delete(`/api/proyectos/${proyectoId}`)
+            dispatch ({
+                type: ELIMINAR_PROYECTO,
+                payload: proyectoId
+            })
+        } catch (error) {
+            const alerta = {
+                msg: 'Hubo un error',
+                categoria: 'alerta-error'
+            }
+            dispatch ({
+                type: PROYECTO_ERROR,
+                payload : alerta
+            })
+        }
+    }
 
     //36.4 creamos el provider para que los estados y las functions se puedan usar en todo el proyecto
     return(
@@ -112,6 +145,8 @@ const ProyectoState = props => {
 
                 //80.2 pasamos el estado proyecto a el provider
                 proyecto : state.proyecto,
+
+                mensaje: state.mensaje,
 
                 /* 40.4 para poder ejecutar la function la debemos poner el el provider */
                 mostrarFormulario,

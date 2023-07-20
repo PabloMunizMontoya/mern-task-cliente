@@ -69,8 +69,7 @@ const FormTarea = () => {
             //tarea nueva 
             //120.3 corremos la function que trajimos desde context para agregar la tarea.
             //aca lo que pasa es lo siguiente: como la tarea que vamos a agregar se agrega a un proyecto, y tenemos una información traída desde el context de proyecto que nos trae el proyecto actual con sus valores y uno de esos valores hace referencia al id del proyecto, usaremos ese id para otorgarle a la nueva tarea el mismo id. ademas el estado inicial de tarea es false .. por que pues al ser una tarea nueva se supone que aun esta por hacerse y el estado false o true es lo que usamos para definir si esta completa o incompleta, luego a la function agregarTarea le damos como parámetro esta nueva tarea con todos los datos nuevos obtenidos en este componente, nombre, estado e id.
-            tarea.proyectoId = proyectoActual.id
-            tarea.estado = false
+            tarea.proyecto = proyectoActual._id
             agregarTarea(tarea)
 
         } else {
